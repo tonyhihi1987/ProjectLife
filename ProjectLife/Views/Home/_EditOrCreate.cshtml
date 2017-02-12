@@ -1,0 +1,66 @@
+﻿@model ProjectViewModel
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Nouveau Projet</h4>
+            </div>
+            <div class="modal-body">
+                <form asp-controller="Project" asp-action="Add" method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="col-md-3 control-label"></label>
+                        <div class="col-md-9">
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="UserName" class="col-md-3 control-label"></label>
+                        <div class="col-md-9">
+                            @Html.DropDownListFor(model => model.UserName, Model.Users,
+                   new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description" class="col-md-3 control-label"></label>
+                        <div class="col-md-9">
+                            <textarea asp-for="Description" class="form-control"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Type.Name" class="col-md-3 control-label"></label>
+                        <div class="col-md-9">
+                            <input asp-for="Type.Name" class="form-control" />
+                            <span asp-validation-for="Type.Name" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TargetDate" class="col-md-3 control-label"></label>
+                        @Html.Partial("_DateTimePicker",Model.TargetDate)
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="File" class="col-md-3 control-label"></label>
+                        <div class="col-md-9">
+                            <input asp-for="File" id="input-1" type="file" class="file">
+                            <span asp-validation-for="File" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                   
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                        <button type="submit" class="btn btn-primary">Sauvegarder</button>
+                    </div>
+                </form>
+        </div>
+    </div>
+</div>
+    </div>

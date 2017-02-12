@@ -1,0 +1,39 @@
+﻿@model List<ProjectViewModel>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@foreach (var item in Model)
+{
+    <article>
+            <div>
+                <span class="date-created"><i class="fa fa-pencil-square"></i>  @item.CreationDate.ToString("dd/MM/yyyy")</span>
+            </div>
+            <div id="btn-update" class="row">
+                <button id="btn-modify"><i class="glyphicon glyphicon-pencil"></i></button>
+                <button id="btn-remove"><i class="glyphicon glyphicon-remove"></i></button>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-3">
+                        <img class="img-responsive" src="@item.Data" />
+                    </div>
+                    <div class="col-md-9">
+                        <h1>@item.Name</h1>
+                        <p>@item.Description</p>
+                    </div>
+                </div>
+                <div>
+                    <span class="date-target"><i class="fa fa-dot-circle-o"></i>  @item.TargetTime</span>
+                </div>
+            </div>
+      
+</article>
+}
+
+        
+
+
+
+

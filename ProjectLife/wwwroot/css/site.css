@@ -1,0 +1,157 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+article{    
+margin-top:10px;
+width: 100%;    
+border: 1px solid #d4d4d4;
+border-radius: 2px;
+padding:10px;
+box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+}
+
+h1{  
+font-family:Calibri;
+}
+article p{
+margin-top:15px;
+margin-bottom:15px;
+color:gray;
+}
+
+
+.date-created{
+    float:left;
+    color:darkgrey;
+    font-family:cursive;
+    font-size:smaller;
+}
+
+.date-target{
+    float:right;
+    color:rgb(224, 11, 117);
+    font-family:cursive;
+    font-size:smaller;
+    padding-right:20px;
+
+}
+#btn-update{
+    padding-right:15px;
+      float:right;
+      color:white;
+      
+}
+#btn-remove{
+    background-color:red;
+    opacity:0.5;
+}
+#btn-remove:hover{
+    opacity:1!important;
+}
+#btn-modify{
+    opacity:0.5;
+   background-color:orange;
+}
+#btn-modify:hover{
+    opacity:1!important;
+}
+article button{    
+    padding:2px;  
+    background-color:transparent;
+    border-color:transparent;
+}
+.img-responsive{
+    opacity:0.8;
+}
+.img-responsive:hover{
+    opacity:1;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+}
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top:45px;
+}
+
+/* Set widths on the form inputs since otherwise they're 100% wide */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"]
+{
+    width: 100%;
+}
+
+#dropdown-type{
+padding-top:15px;
+  }
+
+#dropdown-type > button{
+ border-color:transparent;
+border-radius:0px;
+background-color:transparent;
+  }
+#search-btn{
+    padding-top:6px;
+    padding-bottom:6px;
+}
+#new-btn,#new-li{
+    padding-top:6px;
+    padding-bottom:6px; 
+}
+#new-btn {
+       background-color:rgba(14, 224, 11, 0.74);       
+       border-color:transparent;
+       width:150px;
+       height:35px;
+}
+
+#new-btn:hover {
+width:155px;
+height:37px;
+-webkit-transition: all 0.3s ease;
+-moz-transition: all 0.3s ease;
+-o-transition: all 0.3s ease;
+}
+#new-btn span {      
+       font-weight:500;
+       color:black;
+}
+
+#new-btn span:hover {      
+       color:white;
+       font-weight:600;
+}
+
+#add-datepicker,#add-icon-datepicker{
+    padding-top:0px;
+    padding-bottom:0px;
+    color:rgba(14, 224, 11, 0.74);
+}
+
+
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+  /* Hide captions */
+  .carousel-caption {
+    display: none
+  }
+}
+
+
