@@ -21,14 +21,13 @@ color:gray;
 }
 
 
-.date-created{
-    float:left;
-    color:darkgrey;
+.date-created{    
+    color:#31708f;
     font-family:cursive;
     font-size:smaller;
 }
 
-.date-target{
+.date-target{    
     float:right;
     color:rgb(224, 11, 117);
     font-family:cursive;
@@ -43,7 +42,7 @@ color:gray;
       
 }
 #btn-remove{
-    background-color:red;
+    background-color:#31708f;
     opacity:0.5;
 }
 #btn-remove:hover{
@@ -51,7 +50,7 @@ color:gray;
 }
 #btn-modify{
     opacity:0.5;
-   background-color:orange;
+   background-color:rgba(14, 224, 11, 0.74);
 }
 #btn-modify:hover{
     opacity:1!important;
