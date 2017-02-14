@@ -35,20 +35,30 @@ color:gray;
     padding-right:20px;
 
 }
-#btn-update{
+.btn-task{
+    padding-top:6px!important;
+    padding-bottom:6px!important;
+
+}
+#div-update{
     padding-right:15px;
-      float:right;
-      color:white;
-      
+      color:white;      
+}
+
+#div-update form{
+    float:right;
 }
 #btn-remove{
     background-color:#31708f;
     opacity:0.5;
+    margin-left: 5px;
+    float: right;
 }
 #btn-remove:hover{
     opacity:1!important;
 }
 #btn-modify{
+    float:right;
     opacity:0.5;
    background-color:rgba(14, 224, 11, 0.74);
 }
@@ -95,16 +105,71 @@ textarea {
 {
     width: 100%;
 }
+  /*DropDown*/
+  .dropdown-menu .sub-menu {
+    left: 100%;
+    position: absolute;
+    top: 0;
+    visibility: hidden;
+    margin-top: -1px;
+}
 
-#dropdown-type{
-padding-top:15px;
-  }
+.dropdown-menu li:hover .sub-menu {
+    visibility: visible;
+}
 
-#dropdown-type > button{
- border-color:transparent;
-border-radius:0px;
-background-color:transparent;
-  }
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+
+
+.nav-tabs .dropdown-menu, .nav-pills .dropdown-menu, .navbar .dropdown-menu {
+    margin-top: 0;
+   
+}
+.dropdown-menu > li > a{
+    padding:0px;
+}
+.nav > li{
+    font-size:16px;
+}
+.navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand{
+    font-size:30px;
+}
+.navbar .sub-menu:before {
+    border-bottom: 7px solid transparent;
+    border-left: none;
+    border-right: 7px solid rgba(0, 0, 0, 0.2);
+    border-top: 7px solid transparent;
+    left: -7px;
+    top: 10px;
+}
+.navbar-nav > li > .dropdown-menu{
+    margin-top:3px;
+     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+     color:white;
+     background-color:#31708f;
+}
+.dropdown-menu > li > a{
+color:white;
+}
+.dropdown-menu > li > a:hover{
+        background-color:#31708f;
+color:white;
+}
+
+.btn-primary{
+    background-color:#31708f;
+}
+.green{
+    border-color:rgba(14, 224, 11, 0.74)!important;
+    background-color:rgba(14, 224, 11, 0.74)!important;
+}
+.navbar .sub-menu:after {
+    border-top: 6px solid transparent;
+    border-left: none;
+}
 #search-btn{
     padding-top:6px;
     padding-bottom:6px;
@@ -115,18 +180,29 @@ background-color:transparent;
 }
 #new-btn {
        background-color:rgba(14, 224, 11, 0.74);       
-       border-color:transparent;
-       width:150px;
+       border-color:transparent;       
        height:35px;
 }
-
-#new-btn:hover {
-width:155px;
-height:37px;
--webkit-transition: all 0.3s ease;
--moz-transition: all 0.3s ease;
--o-transition: all 0.3s ease;
+.user-tag{
+    float:left;
+    padding-left:20px;
+    font-weight: bold;
+    font-size: x-large;    
 }
+.check-list{
+    color:darkgrey;
+    padding-left:20px;
+    font-weight: bold;
+}
+.fa-check{
+    color:rgba(14, 224, 11, 0.74);     
+}
+.dropdown-fields
+{
+   margin-left:4px!important;
+   display:inline-block!important;
+}
+
 #new-btn span {      
        font-weight:500;
        color:black;

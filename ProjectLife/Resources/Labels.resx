@@ -129,6 +129,9 @@
   <data name="TargetDate" xml:space="preserve">
     <value>Date prévu</value>
   </data>
+  <data name="Task" xml:space="preserve">
+    <value>Taches</value>
+  </data>
   <data name="TypeName" xml:space="preserve">
     <value>Type de projet</value>
   </data>

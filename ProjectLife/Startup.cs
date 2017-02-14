@@ -50,15 +50,13 @@ namespace ProjectLife
             .AddDbContext<ProjectDataContext>(options =>
             options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]))
             .AddDbContext<TaskDataContext>(options =>
-            options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]))
-            .AddDbContext<TypeDataContext>(options =>
+
             options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
 
             services.AddMvc();
 
             services.AddScoped<IProjectDataContext, ProjectDataContext>();
             services.AddScoped<ITaskDataContext, TaskDataContext>();
-            services.AddScoped<ITypeDataContext, TypeDataContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

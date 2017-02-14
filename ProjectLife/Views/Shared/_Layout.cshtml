@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -15,13 +16,11 @@
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
-
-    @Html.ApplicationInsightsJavaScript(TelemetryConfiguration)
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="row">
-            <div class="col-md-offset-2 col-md-12">
+            <div class="col-md-offset-1 col-md-12">
                 <div class="col-md-2">
                     <div class="container">
                         <div class="navbar-header">
@@ -35,36 +34,21 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-8 ">
+                <div class="col-md-9 ">
                     <div class="navbar-collapse collapse">
                         <div class="col-md-6">
                             <ul class="nav navbar-nav">
-
+                                <li><a asp-area="" asp-controller="Home" asp-action="Index">Tout le Monde <i class="fa fa-check"></i></a></li>
                                 <li><a asp-area="" asp-controller="Home" asp-action="Index">Diane</a></li>
                                 <li><a asp-area="" asp-controller="Home" asp-action="About">Clément</a></li>
-                                <li id="dropdown-type">
-                                    <span>Type</span>
-                                    <button tabindex="-1" data-toggle="dropdown" class="btn btn-default dropdown-toggle" type="button">
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul role="menu" class="dropdown-menu">
-                                        <li>
-                                            <a href="#">
-                                                <input type="checkbox">
-                                                <span class="lbl"> Voyage</span>
-                                            </a>
-                                        </li>
-                                        <li class="divider"></li>
-                                        <li>
-                                            <a href="#">
-                                                <input type="checkbox">
-                                                <span class="lbl"> Enfant</span>
-                                            </a>
-                                        </li>
+                                <li class="dropdown">
+                                    <a href="#" data-toggle="dropdown" class="dropdown-toggle">Type de Projet <b class="caret"></b></a>
+                                    <ul class="dropdown-menu" id="menu1">
+                                       @Html.RenderAction("DisplayTypes", "Project")                                                                  
                                     </ul>
                                 </li>
                                 <li id="new-li">
-                                    <button id="new-btn" data-toggle="modal" data-target="#myModal" class="btn-default"><span>Nouveau Projet  </span><i class="glyphicon glyphicon-list-alt"></i></button>
+                                    <button id="new-btn" style="float:right" data-toggle="modal" data-target="#myModal" class="btn-default"><span>Nouveau Projet  <i class="fa fa-plus-square"></i></span></button>
                                 </li>
                             </ul>
                             </div>
@@ -85,7 +69,9 @@
         </div>
     </div>
     <div class="container body-content">
-        @Html.Partial("~/Views/Home/_EditOrCreate.cshtml",new ProjectViewModel())
+        <div id="modal">
+            @Html.Partial("_EditOrCreate.cshtml", new ProjectViewModel())
+        </div>
         @RenderBody()
         <hr />
         <footer>

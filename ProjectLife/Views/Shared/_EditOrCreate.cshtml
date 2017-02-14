@@ -1,5 +1,9 @@
 ﻿@model ProjectViewModel
 
+ @{
+     var action = Model.Id==0?"Add":"Update";
+     var imageLabel = Model.Id == 0 ? "Image" : "Modifier image";
+ }
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -10,8 +14,11 @@
                 <h4 class="modal-title" id="myModalLabel">Nouveau Projet</h4>
             </div>
             <div class="modal-body">
-                <form asp-controller="Project" asp-action="Add" method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
+                <form asp-controller="Project" asp-action="@action" method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
                     <div asp-validation-summary="All" class="text-danger"></div>
+
+                    <input class="hidden" asp-for="Id">
+                    <input class="hidden" asp-for="ImageId">
                     <div class="form-group">
                         <label asp-for="Name" class="col-md-3 control-label"></label>
                         <div class="col-md-9">
@@ -34,26 +41,44 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Type.Name" class="col-md-3 control-label"></label>
+                        <label asp-for="TypeName" class="col-md-3 control-label"></label>
                         <div class="col-md-9">
-                            <input asp-for="Type.Name" class="form-control" />
-                            <span asp-validation-for="Type.Name" class="text-danger"></span>
+                            @Html.DropDownListFor(model => model.TypeName, Model.Types,
+                   new { @class = "form-control" })
                         </div>
                     </div>
                     <div class="form-group">
                         <label asp-for="TargetDate" class="col-md-3 control-label"></label>
-                        @Html.Partial("_DateTimePicker",Model.TargetDate)
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class='col-sm-6'>
+                                    <div class="form-group">
+                                        <div class='input-group date' id='datetimepicker1'>
+                                            @Html.TextBoxFor(model => model.TargetDate, new { @class = "form-control datepicker" })
+                                            <span id="add-datepicker" class="input-group-addon">
+                                                <span id="add-icon-datepicker" class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
                     <div class="form-group">
-                        <label asp-for="File" class="col-md-3 control-label"></label>
+                        <label class="col-md-3 control-label">@imageLabel</label>
                         <div class="col-md-9">
                             <input asp-for="File" id="input-1" type="file" class="file">
                             <span asp-validation-for="File" class="text-danger"></span>
                         </div>
                     </div>
-
-                   
+                    <div class="form-group">
+                        <label asp-for="Tasks" class="col-md-3 control-label"></label>
+                        <div class="col-md-9">
+                            @Html.Partial("_Tasks", Model.Tasks)
+                        </div>
+                    </div>
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
@@ -64,3 +89,11 @@
     </div>
 </div>
     </div>
+<script type="text/javascript">
+            $(function () {
+                $('#datetimepicker1').datetimepicker({
+                    format: 'DD/MM/YYYY'
+                })
+            });
+
+</script>

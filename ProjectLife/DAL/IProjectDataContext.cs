@@ -8,6 +8,9 @@ namespace ProjectLife.DAL
     {
         Project GetProject(int id);
         List<Project> GetProjects();
+        List<string> GetTypes();
         void Add(Project project);
+        void Delete(int id);
+        void Update(Project project);
     }
 }

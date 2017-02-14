@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
+using System.Reflection;
 
 namespace ProjectLife.ViewModel
 {
@@ -30,9 +31,10 @@ namespace ProjectLife.ViewModel
         new SelectListItem() { Text = UsersConst.Diane, Value = UsersConst.Diane },
         new SelectListItem() { Text = UsersConst.All, Value = UsersConst.All },
     };
-
-
-        public TypeViewModel Type { get; set; } = new TypeViewModel();
+        [Display(Name = "Task", ResourceType = typeof(Labels))]
+        public virtual ICollection<TaskViewModel> Tasks { get; set; } = new List<TaskViewModel>();
+        public List<SelectListItem> Types { get; set; } = new List<SelectListItem>();
+        public string TypeName { get; set; }
 
         [Display(Name = "TargetDate", ResourceType = typeof(Labels))]
         [DataType(DataType.DateTime)]
@@ -45,7 +47,7 @@ namespace ProjectLife.ViewModel
         {
             get
             {
-                TimeSpan ts = DateTime.Now - TargetDate;
+                TimeSpan ts = TargetDate - DateTime.Now;
                 return string.Format("{0}j,{1}h,{2}m,{3}s",
                 ts.Days,
                 ts.Hours,
@@ -58,9 +60,25 @@ namespace ProjectLife.ViewModel
         [Display(Name = "Image", ResourceType = typeof(Labels))]
         public IFormFile File { get; set; }
         
+        public int ImageId { get; set; }
+
         public string Data { get; set; }
 
+        public ProjectViewModel()
+        {
+            foreach (var prop in typeof(TypeConst).GetFields())
+            {
 
+                    var value = prop.GetValue(new TypeConst()) as string;
+                    Types.Add(new SelectListItem()
+                    {
+                        Text = value,
+                        Value = value,                       
 
-    }
+                    });
+                }
+            }
+        }
+
+    
 }

@@ -14,7 +14,7 @@ namespace ProjectLife.Controllers
 {
     public class ProjectController : Controller
     {
-        
+
         private IMapper _mapper { get; set; }
 
         private readonly IProjectDataContext _projectDataContext;
@@ -27,6 +27,36 @@ namespace ProjectLife.Controllers
         }
         [HttpPost]
         public ActionResult Add(ProjectViewModel pVm)
+        {
+            _projectDataContext.Add(fillProject(pVm));
+            return RedirectToAction("Index", "Home");
+
+        }
+        [HttpPost]
+        public ActionResult Delete(int id)
+        {
+            _projectDataContext.Delete(id);
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public ActionResult Update(ProjectViewModel pVm)
+        {            
+            var newProject = fillProject(pVm);
+
+            _projectDataContext.Update(newProject);
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult Update(int id)
+        {
+            var project = _projectDataContext.GetProject(id);
+            var pVm = project.MapTo<ProjectViewModel>(_mapper);
+            
+            return PartialView("_EditOrCreate", pVm);
+        }
+
+        private Project fillProject(ProjectViewModel pVm)
         {
             var project = pVm.MapTo<Project>(_mapper);
             if (pVm.File != null)
@@ -44,16 +74,21 @@ namespace ProjectLife.Controllers
                 }
                 project.Image = new ProjectLife.Model.Image()
                 {
+                    Id= pVm.ImageId,
                     FileName = pVm.File.FileName,
                     Data = data
                 };
+            }
 
-            }            
-
-            _projectDataContext.Add(project);
-            return RedirectToAction("Index","Home");
-
+            return project;
         }
 
+        
+        public ActionResult DisplayTypes()
+        {
+            List<string> types=_projectDataContext.GetTypes();
+            return PartialView("_Types", types);
+
+        }
     }
 }
