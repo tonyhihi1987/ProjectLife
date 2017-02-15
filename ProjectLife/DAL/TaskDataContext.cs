@@ -20,6 +20,29 @@ namespace ProjectLife.DAL
             return Tasks.ToList();
         }
 
+        public void Delete(List<Task> tasks)
+        {
+            var taskToDelete = new List<Task>();
+            foreach (var item in tasks)
+            {
+                if (tasks.Where(a => a.Id.Equals(item.Id)).Any())
+                {
+                    taskToDelete.Add(item);
+                }
+
+            }                            
+          RemoveRange(taskToDelete);
+
+            SaveChanges();
+        }
+
+        public void Add(List<Task> tasks)
+        {
+
+            AddRange(tasks);
+
+            SaveChanges();
+        }
 
     }
 }

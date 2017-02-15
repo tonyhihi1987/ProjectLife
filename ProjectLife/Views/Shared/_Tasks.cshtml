@@ -1,25 +1,33 @@
 ﻿@model List<TaskViewModel>
 <link href="~/lib/bootstrap/dist/css/toggle-switch.css" rel="stylesheet" />
+
 @foreach (var item in Model)
 {
-    <div class="row">
-        <div class="col-md-6">
-            <input asp-for="@item.Name" class="form-control" />
+    
+        <div class="task" onclick="setActive($(this),event)">
+            <input asp-for="@item.Id" type="hidden" class="form-control" />
+            <div class="row">
+            <div class="col-md-6">
+                <input asp-for="@item.Name" class="form-control" />
+            </div>
+            <div class="col-md-4">
+                <label class="switch-light" onclick="">
+                    @Html.CheckBoxFor(x => item.IsDone)
+                    <span class="well">
+                        <span class="btn-task ">OK!</span>
+                        <span class="btn-task">NOK!</span>
+                        <a class="btn btn-primary green task"></a>
+                    </span>
+                </label>
+            </div>
+            @{
+                var icon = item.Equals(item.Equals(Model.Last())) ? "plus" : "times";
+            }
+                <div class="col-md-1">
+                    <button class="btn btn-primary btn-task fa fa-@icon" onclick="addTask(event)"></button>
+                </div>
+            </div>
         </div>
-        <div class="col-md-4">
-            <label class="switch-light" onclick="">
-            @Html.CheckBoxFor(x =>item.IsDone)
-                <span class="well">
-                    <span class="task ">OK!</span>
-                    <span class="task">Bientot!</span>
-                    <a class="btn btn-primary green task"></a>
-                </span>
-            </label>
-        </div>
-        <div class="col-md-1">
-            <button class="btn btn-primary btn-task"><i class="fa fa-plus"></i></button>
-        </div>
-    </div>
 }
 <div id="rowTask" class="row">
     @Html.Partial("_Task")

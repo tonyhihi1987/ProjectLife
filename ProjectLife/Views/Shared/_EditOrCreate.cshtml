@@ -14,7 +14,7 @@
                 <h4 class="modal-title" id="myModalLabel">Nouveau Projet</h4>
             </div>
             <div class="modal-body">
-                <form asp-controller="Project" asp-action="@action" method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
+                <form id="project-form" asp-controller="Project" asp-action="@action" method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
                     <div asp-validation-summary="All" class="text-danger"></div>
 
                     <input class="hidden" asp-for="Id">
@@ -69,20 +69,28 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label">@imageLabel</label>
                         <div class="col-md-9">
-                            <input asp-for="File" id="input-1" type="file" class="file">
+                            <input asp-for="File" id="file" type="file" class="file">
                             <span asp-validation-for="File" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label asp-for="Tasks" class="col-md-3 control-label"></label>
                         <div class="col-md-9">
-                            @Html.Partial("_Tasks", Model.Tasks)
+                       @Html.Partial("_Tasks", Model.Tasks)
                         </div>
                     </div>
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-                        <button type="submit" class="btn btn-primary">Sauvegarder</button>
+                        @if (ViewBag.state != "Update")
+                        {
+                        <button type="button" onclick="saveNewProject(event)" class="btn btn-primary">Sauvegarder</button>
+                        }
+                        else
+                        {
+                            <button type="button" onclick="updateProject(event)" class="btn btn-primary">Modifier</button>
+
+                        }
                     </div>
                 </form>
         </div>

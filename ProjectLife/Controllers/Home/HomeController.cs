@@ -22,6 +22,7 @@ namespace ProjectLife.Controllers
         }
         public IActionResult Index()
         {
+            ViewBag.state = "Create";
             var projects = _projectDataContext.GetProjects();
             var projectsVm = projects.MapTo<ProjectViewModel>(_mapper);
             return View(projectsVm);

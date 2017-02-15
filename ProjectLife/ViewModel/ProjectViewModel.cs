@@ -60,7 +60,7 @@ namespace ProjectLife.ViewModel
         [Display(Name = "Image", ResourceType = typeof(Labels))]
         public IFormFile File { get; set; }
         
-        public int ImageId { get; set; }
+        public int? ImageId { get; set; }
 
         public string Data { get; set; }
 

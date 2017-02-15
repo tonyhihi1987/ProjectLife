@@ -8,5 +8,7 @@ namespace ProjectLife.DAL
     {
         List<Task> GetTasks();
         Task GetTask(int id);
+        void Delete(List<Task> tasks);
+        void Add(List<Task> tasks);
     }
 }
