@@ -1,4 +1,16 @@
-﻿
+﻿@{ 
+    var allIcon = string.Empty;
+    var dianeIcon = string.Empty;
+    var clementIcon = string.Empty;
+    var anyWayIcon = string.Empty;
+
+    var checkIcon = "fa fa-check";
+    anyWayIcon = Filter.UserFilter == @UsersConst.AnyWay ? checkIcon : "";
+    allIcon = Filter.UserFilter == @UsersConst.All ? checkIcon : "";
+    dianeIcon = Filter.UserFilter == @UsersConst.Diane ? checkIcon : "";
+    clementIcon = Filter.UserFilter == @UsersConst.Clem ? checkIcon : "";
+
+}
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,13 +50,30 @@
                     <div class="navbar-collapse collapse">
                         <div class="col-md-6">
                             <ul class="nav navbar-nav">
-                                <li><a asp-area="" asp-controller="Home" asp-action="Index">Tout le Monde <i class="fa fa-check"></i></a></li>
-                                <li><a asp-area="" asp-controller="Home" asp-action="Index">Diane</a></li>
-                                <li><a asp-area="" asp-controller="Home" asp-action="About">Clément</a></li>
+                                <li>
+                                    <a asp-area="" asp-controller="Home" asp-action="Index" asp-route-filter="@UsersConst.AnyWay">
+                                        @UsersConst.AnyWay  <i class='@anyWayIcon'></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-area="" asp-controller="Home" asp-action="Index" asp-route-filter="@UsersConst.All">
+                                        @UsersConst.All  <i class='@allIcon'></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-area="" asp-controller="Home" asp-action="Index" asp-route-filter="@UsersConst.Diane">
+                                        @UsersConst.Diane <i class='@dianeIcon'></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-area="" asp-controller="Home" asp-action="Index" asp-route-filter="@UsersConst.Clem">
+                                        @UsersConst.Clem <i class='@clementIcon'></i>
+                                    </a>
+                                </li>
                                 <li class="dropdown">
                                     <a href="#" data-toggle="dropdown" class="dropdown-toggle">Type de Projet <b class="caret"></b></a>
                                     <ul class="dropdown-menu" id="menu1">
-                                       @Html.RenderAction("DisplayTypes", "Project")                                                                  
+                                        @Html.RenderAction("DisplayTypes", "Project")
                                     </ul>
                                 </li>
                                 <li id="new-li">

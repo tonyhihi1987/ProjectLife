@@ -25,11 +25,22 @@ function setActive(selector,e) {
 function addTask(e) {
     e.preventDefault();
     var target = $(e.target);
-    if (target.hasClass("fa fa-plus"))
-    {
-        $("#rowTask").append($("#newTask").html());
-        $(e.target).removeClass();
-        $(e.target).addClass("btn btn-primary btn-task fa fa-times");
+    var isInputEmpty =false;
+    if (target.hasClass("fa fa-plus")) {
+        $("#rowTask .task").each(function () {
+            if ($(this).find("btn.btn-primary.btn-task.fa.fa-plus") && $(this).find("input").val().trim() == "") {
+                isInputEmpty = true;
+            }
+        });
+
+        if (isInputEmpty) {
+            alert("le champs ne doit pas être vide !!");
+        }
+        else {
+            $("#rowTask").append($("#newTask").html());
+            $(e.target).removeClass();
+            $(e.target).addClass("btn btn-primary btn-task fa fa-times");
+        }
     }
     else {
         $(e.target).addClass("btn btn-primary btn-task fa fa-to-be-deleted");

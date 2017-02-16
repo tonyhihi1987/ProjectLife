@@ -44,7 +44,7 @@ namespace ProjectLife
             services.AddSingleton<IMapper>(sp => _mapperConfiguration.CreateMapper());
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
-
+            services.AddMemoryCache();
 
             services.AddEntityFrameworkSqlServer()
             .AddDbContext<ProjectDataContext>(options =>

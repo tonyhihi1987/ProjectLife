@@ -3,6 +3,8 @@
     @{
         ViewData["Title"] = "Home Page";
         var checkListId = "checkList0";
+        var clemColor = "#31708f";
+        var dianeColor = "rgb(224, 11, 117)";
         int i = 0;
     }
 
@@ -13,17 +15,13 @@
         var color = string.Empty;
         switch (item.UserName)
         {
-            case "Diane":
+            case UsersConst.Diane:
                 userTag = "D";
-                color = "rgb(224, 11, 117)";
+                color = dianeColor;
                 break;
-            case "Clément":
+            case UsersConst.Clem:
                 userTag = "C";
-                color = "#31708f";
-                break;
-            case "Tout le monde":
-                userTag = "A";
-                color = "black";
+                color = clemColor;
                 break;
             default:
                 break;
@@ -58,21 +56,32 @@
                 <div>
                     <span class="date-target"><i class="fa fa-dot-circle-o"></i>  @item.TargetTime</span>
                 </div>
+                @if (item.UserName != UsersConst.All)
+                {
                 <span class="user-tag" style="color:@color">@userTag</span>
+                }
+                else
+                {
+                    <span class="user-tag" style="color:@clemColor">C</span>
+                    <span class="user-tag" style="color:@dianeColor;padding-left:5px;">D</span>
+                }
             </div>
             <div class="row">
                 <div data-toggle="collapse" data-target="#@checkListId" class="accordion-toggle">
-                    <button class="check-list">Check list <i class="fa fa-caret-down"></i></button>
+                    <span class="check-list">Check list <i class="fa fa-caret-down"></i></span>
 
                 </div>
                 <div class="check-list">
                     <div class="accordian-body collapse" id="@checkListId">
-                        <div class="col-md-3">
-                            <input type="checkbox" /> test
+                        @foreach (var tak in item.Tasks)
+                        {
+
+                        <div >                            
+                           @{var iconClass = tak.IsDone ? "check" : "times";}
+                              <i class="fa fa-@iconClass"></i> @tak.Name
                         </div>
-                        <div class="col-md-3">
-                            <input type="checkbox" /> test
-                        </div>
+                        <hr style="width:33%;margin-left:0px;" />
+                        }
 
 
                     </div>

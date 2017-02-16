@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ProjectLife.DAL;
 using AutoMapper;
@@ -32,7 +31,7 @@ namespace ProjectLife.Controllers
         {
             pVm.Id = 0;
             _projectDataContext.Add(fillProject(pVm));
-            return Json(Url.Action("Index", "Home"));
+            return Json(Url.Action("Index", "Home",new { filter = Filter.UserFilter }));
 
         }
         [HttpPost]
@@ -51,9 +50,9 @@ namespace ProjectLife.Controllers
             _projectDataContext.Update(newProject,pVm.ImageId !=0);
             var project = _projectDataContext.GetProject(pVm.Id);
 
-            var tVm = pVm.Tasks.MapTo<ProjectLife.Model.Task>(_mapper);
-            var taskToBeDeleted = new List<ProjectLife.Model.Task>();
-            var taskToBeAdded = new List<ProjectLife.Model.Task>();
+            var tVm = pVm.Tasks.MapTo<ProjectLife.Model.Item>(_mapper);
+            var taskToBeDeleted = new List<ProjectLife.Model.Item>();
+            var taskToBeAdded = new List<ProjectLife.Model.Item>();
             foreach (var item in tVm)
             {
                 if (!project.Tasks.Where(t => t.Id.Equals(item.Id)).Any() )
@@ -118,11 +117,34 @@ namespace ProjectLife.Controllers
             return project;
         }
 
-        
+        public ActionResult ApplyFilter(List<TypeFilterViewModel> vM)
+        {
+            Filter.TypeFilters = vM;
+            return RedirectToAction("Index", "Home");
+        }
+
         public ActionResult DisplayTypes()
         {
-            List<string> types=_projectDataContext.GetTypes();
-            return PartialView("_Types", types);
+             var vM = new List<TypeFilterViewModel>();
+
+            if (!Filter.TypeFilters.Any())
+            {
+                List<string> types = _projectDataContext.GetTypes();
+
+                foreach (var item in types)
+                {
+                    vM.Add(new TypeFilterViewModel
+                    {
+                        Name = item
+                    });
+                }
+
+            }       
+            else
+            {
+                vM = Filter.TypeFilters;
+            }     
+            return PartialView("_Types", vM);
 
         }
     }

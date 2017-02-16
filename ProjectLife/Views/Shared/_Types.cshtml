@@ -1,6 +1,12 @@
-﻿@model List<string>
+﻿@model List<TypeFilterViewModel>
+<form method="post" action="Project/ApplyFilter" >
+   @for (int j = 0; j < Model.Count; j++)
+   {
 
-@foreach (var item in Model)
-{
-    <li > <input class="dropdown-fields" type="checkbox" /><a class="dropdown-fields" href="#">@item</a></li>
-}
+    <input asp-for="@Model[j].IsChecked" type="checkbox" />
+    <label  for="@Model[j].Name" >@Model[j].Name</label>
+
+
+   }
+    <button class="btn btn-primary fa fa-check" type="submit" style="float:right"></button>
+</form>

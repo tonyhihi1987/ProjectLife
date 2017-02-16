@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ProjectLife.Model
 {
@@ -15,7 +14,7 @@ namespace ProjectLife.Model
         public string Description { get; set; }
         public string TypeName { get; set; }
         public DateTime TargetDate { get; set; }
-        public virtual ICollection<Task> Tasks { get; set; }
+        public virtual ICollection<Item> Tasks { get; set; }
         public int? ImageId { get; set; }
         [ForeignKey("ImageId")]
         public virtual Image Image { get; set; }

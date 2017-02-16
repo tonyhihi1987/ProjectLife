@@ -6,9 +6,9 @@ namespace ProjectLife.DAL
 {
     public interface ITaskDataContext
     {
-        List<Task> GetTasks();
-        Task GetTask(int id);
-        void Delete(List<Task> tasks);
-        void Add(List<Task> tasks);
+        List<Item> GetTasks();
+        Item GetTask(int id);
+        void Delete(List<Item> tasks);
+        void Add(List<Item> tasks);
     }
 }

@@ -216,6 +216,7 @@
 "C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Mapper\AutoMapperProfileConfiguration.cs"
 "C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Mapper\MapperHelper.cs"
 "C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Model\Const.cs"
+"C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Model\Filter.cs"
 "C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Model\IEntity.cs"
 "C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Model\Image.cs"
 "C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Model\Project.cs"
@@ -224,3 +225,4 @@
 "C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\ViewModel\ImageViewModel.cs"
 "C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\ViewModel\ProjectViewModel.cs"
 "C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\ViewModel\TaskViewModel.cs"
+"C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\ViewModel\TypeFilterViewModel.cs"

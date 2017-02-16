@@ -190,13 +190,19 @@ color:white;
     font-weight: bold;
     font-size: x-large;    
 }
+
 .check-list{
+    padding-top:10px;
+    cursor:pointer;
     color:darkgrey;
     padding-left:20px;
     font-weight: bold;
 }
 .fa-check{
     color:rgba(14, 224, 11, 0.74);     
+}
+.check-list .fa-times{
+    color:#31708f;
 }
 .dropdown-fields
 {

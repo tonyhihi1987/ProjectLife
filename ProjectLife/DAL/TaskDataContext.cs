@@ -8,21 +8,21 @@ namespace ProjectLife.DAL
 {
     public class TaskDataContext :ProjectLifeDataContext, ITaskDataContext
     {
-        public DbSet<Task> Tasks { get; set; }
+        public DbSet<Item> Tasks { get; set; }
 
-        public Task GetTask(int id)
+        public Item GetTask(int id)
         {
             return Tasks.Where(a => a.Id.Equals(id)).FirstOrDefault();
         }
 
-        public List<Task> GetTasks()
+        public List<Item> GetTasks()
         {
             return Tasks.ToList();
         }
 
-        public void Delete(List<Task> tasks)
+        public void Delete(List<Item> tasks)
         {
-            var taskToDelete = new List<Task>();
+            var taskToDelete = new List<Item>();
             foreach (var item in tasks)
             {
                 if (tasks.Where(a => a.Id.Equals(item.Id)).Any())
@@ -36,7 +36,7 @@ namespace ProjectLife.DAL
             SaveChanges();
         }
 
-        public void Add(List<Task> tasks)
+        public void Add(List<Item> tasks)
         {
 
             AddRange(tasks);

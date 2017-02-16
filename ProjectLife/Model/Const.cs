@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ProjectLife.Model
 {
@@ -9,7 +8,8 @@ namespace ProjectLife.Model
     {
         public const string Diane = "Diane";
         public const string Clem = "Clément";
-        public const string All = "Tout le monde";
+        public const string All = "Tout les deux";
+        public const string AnyWay = "Tous";
     }
 
     public class TypeConst
