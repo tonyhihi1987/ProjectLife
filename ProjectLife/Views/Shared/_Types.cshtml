@@ -3,8 +3,11 @@
    @for (int j = 0; j < Model.Count; j++)
    {
 
-    <input asp-for="@Model[j].IsChecked" type="checkbox" />
-    <label  for="@Model[j].Name" >@Model[j].Name</label>
+    <div>
+        <input asp-for="@Model[j].IsChecked" type="checkbox" />
+        <label>@Model[j].Name</label>
+        <input asp-for="@Model[j].Name" type="hidden" />
+    </div>
 
 
    }

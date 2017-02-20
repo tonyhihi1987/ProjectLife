@@ -16,14 +16,21 @@ namespace ProjectLife.DAL
             
         } 
 
-        public List<Project> GetProjects(string filter)
+        public List<Project> GetProjects()
         {
-            if (filter!=null && filter !=UsersConst.AnyWay)
-            return Projects.Include(p => p.Image).Include(p=>p.Tasks).Where(p=>p.UserName.Equals(filter)).ToList();
-            else
+
+            var result = Projects.Include(p => p.Image).Include(p => p.Tasks).ToList();
+            if (Filter.UserFilter != null && Filter.UserFilter != UsersConst.AnyWay)
             {
-                return Projects.Include(p => p.Image).Include(p => p.Tasks).ToList();
+                result= result.Where(p => p.UserName.Equals(Filter.UserFilter)).ToList();
             }
+                        
+            if (Filter.TypeFilters.Where(a=>a.IsChecked).Any())
+            {
+                result= result.Where(a => Filter.TypeFilters.Where (f => f.IsChecked && f.Name.Equals(a.TypeName)).Count() > 0).ToList();
+            }
+            return result;
+            
         }
 
         public void Add(Project project)

@@ -7,7 +7,7 @@ namespace ProjectLife.DAL
     public interface IProjectDataContext
     {
         Project GetProject(int id);
-        List<Project> GetProjects(string filter);
+        List<Project> GetProjects();
         List<string> GetTypes();
         void Add(Project project);
         void Delete(int id);

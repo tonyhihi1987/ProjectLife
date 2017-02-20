@@ -31,7 +31,7 @@ namespace ProjectLife.Controllers
         {
             pVm.Id = 0;
             _projectDataContext.Add(fillProject(pVm));
-            return Json(Url.Action("Index", "Home",new { filter = Filter.UserFilter }));
+            return Json(Url.Action("Index", "Home"));
 
         }
         [HttpPost]
@@ -126,24 +126,19 @@ namespace ProjectLife.Controllers
         public ActionResult DisplayTypes()
         {
              var vM = new List<TypeFilterViewModel>();
-
-            if (!Filter.TypeFilters.Any())
-            {
-                List<string> types = _projectDataContext.GetTypes();
-
+            List<string> types = _projectDataContext.GetTypes();
+     
                 foreach (var item in types)
                 {
+                var filterItem = Filter.TypeFilters.Where(a => a.Name.Equals(item));
+                var isChecked = filterItem.Any() ? filterItem.FirstOrDefault().IsChecked : false;
                     vM.Add(new TypeFilterViewModel
                     {
-                        Name = item
+                        Name = item,
+                        IsChecked= isChecked
                     });
                 }
-
-            }       
-            else
-            {
-                vM = Filter.TypeFilters;
-            }     
+            Filter.TypeFilters = vM;
             return PartialView("_Types", vM);
 
         }

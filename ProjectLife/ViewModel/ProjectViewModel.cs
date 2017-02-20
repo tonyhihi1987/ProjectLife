@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 
 namespace ProjectLife.ViewModel
@@ -43,16 +44,25 @@ namespace ProjectLife.ViewModel
         [DataType(DataType.DateTime)]
         public DateTime CreationDate { get; set; }
 
+        public bool IsDone { get {
+
+                return !Tasks.Where(t => !t.IsDone).Any();
+                    } }
         public string TargetTime
         {
             get
             {
                 TimeSpan ts = TargetDate - DateTime.Now;
-                return string.Format("{0}j,{1}h,{2}m,{3}s",
-                ts.Days,
-                ts.Hours,
-                ts.Minutes,
-                ts.Seconds);
+                return string.Format("{0}j",
+                ts.Days);
+            }
+        }
+
+        public bool IsWarn
+        {
+            get
+            {
+                return (TargetDate - DateTime.Now).Days.Equals(0);
             }
         }
 

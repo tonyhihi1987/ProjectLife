@@ -16,7 +16,7 @@ namespace ProjectLife.AutoMapper
                 .ForMember(dest => dest.ImageId, opts => opts.MapFrom(src => src.Image.Id));
             CreateMap<ProjectViewModel, Project>().ForMember(dest => dest.CreationDate, opts => opts.MapFrom(src => DateTime.Now));
             CreateMap<ProjectLife.Model.Item, TaskViewModel>();
-            CreateMap<TaskViewModel, ProjectLife.Model.Item>();            
+            CreateMap<TaskViewModel, ProjectLife.Model.Item>().ForMember(dest => dest.IsDone, opts => opts.MapFrom(src => !src.IsDone));
         }
     }
 }

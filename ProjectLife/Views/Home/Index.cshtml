@@ -1,4 +1,19 @@
 ﻿@model List<ProjectViewModel>
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+     $("#delete").on("click", function (e)
+  {
+         if (confirm('Etes vous sur de vouloir supprimer?')) {
+         }
+         else {
+             e.preventDefault();
+
+         }
+  });
+
+});
+</script>
 <div id="index">
     @{
         ViewData["Title"] = "Home Page";
@@ -30,17 +45,40 @@
         <article>
             <div class="row">
                 <div class="col-xs-3">
-                    <span class="date-created"><i class="fa fa-pencil-square"></i>  @item.CreationDate.ToString("dd/MM/yyyy")</span>
+                    <div style="float:left">
+                        <div>
+                            @if (item.UserName != UsersConst.All)
+                {
+                                <span class="user-tag" style="color:@color">@userTag</span>
+                            }
+                            else
+                            {
+                                <span class="user-tag" style="color:@clemColor">C</span>
+                                <span class="user-tag" style="color:@dianeColor;padding-left:5px;">D</span>
+                            }
+
+                        </div>
+                        <span class="date-created"><i class="fa fa-pencil-square"></i>  @item.CreationDate.ToString("dd/MM/yyyy")</span>                      
+                    </div>
                 </div>
                 <div class="col-xs-offset-2  col-xs-3">
                     <h1>@item.Name</h1>
                 </div>
                 <div class="col-xs-offset-2  col-xs-2">
                     <div id="div-update" class="row">
-                        <form action="Project/Delete/@item.Id" method="post">
-                            <button id="btn-remove" type="submit"><i class="glyphicon glyphicon-remove"></i></button>
+
+                        <form id="delete" action="Project/Delete/@item.Id" method="post">
+                            <button id="btn-remove" data-toggle="tooltip" data-placement="bottom" title="Supprimer" type="submit"><i class="glyphicon glyphicon-remove"></i></button>
                         </form>
-                        <button id="btn-modify" onclick="setModal(@item.Id)"><i class="glyphicon glyphicon-pencil"></i></button>
+                        <button id="btn-modify" data-toggle="tooltip" data-placement="bottom" title="Modifier" onclick="setModal(@item.Id)"><i class="glyphicon glyphicon-pencil"></i></button>
+                        @if (item.IsDone)
+                        {
+                            <img data-toggle="tooltip" data-placement="bottom" title="Bien joué!!" style="float:right" src="/images/gold-medal-icon-32x32.png" />
+                        }
+                        else if(item.IsWarn)
+                        {
+                            <span data-toggle="tooltip" data-placement="bottom" title="Tu as dépassé la date prévu !!" style="opacity:0.6;float:right;padding:0px;margin-right:3px;color:red" class="fa fa-warning fa-2x" ></span>
+                        }
                     </div>
                 </div>
             </div>
@@ -53,30 +91,21 @@
                         <p>@item.Description</p>
                     </div>
                 </div>
-                <div>
-                    <span class="date-target"><i class="fa fa-dot-circle-o"></i>  @item.TargetTime</span>
-                </div>
-                @if (item.UserName != UsersConst.All)
-                {
-                <span class="user-tag" style="color:@color">@userTag</span>
-                }
-                else
-                {
-                    <span class="user-tag" style="color:@clemColor">C</span>
-                    <span class="user-tag" style="color:@dianeColor;padding-left:5px;">D</span>
-                }
+
             </div>
             <div class="row">
-                <div data-toggle="collapse" data-target="#@checkListId" class="accordion-toggle">
-                    <span class="check-list">Check list <i class="fa fa-caret-down"></i></span>
+                    <span class="date-target"><i class="fa fa-dot-circle-o"></i>  @item.TargetTime</span>
 
+                @if (item.Tasks.Any()){ 
+                <div style="margin-top:20px;" data-toggle="collapse" data-target="#@checkListId" class="accordion-toggle">
+                    <span class="check-list">Check list <i class="fa fa-caret-down"></i></span>
                 </div>
                 <div class="check-list">
                     <div class="accordian-body collapse" id="@checkListId">
                         @foreach (var tak in item.Tasks)
                         {
 
-                        <div >                            
+                        <div >
                            @{var iconClass = tak.IsDone ? "check" : "times";}
                               <i class="fa fa-@iconClass"></i> @tak.Name
                         </div>
@@ -86,6 +115,7 @@
 
                     </div>
                 </div>
+                }
             </div>
         </article>
         i++;

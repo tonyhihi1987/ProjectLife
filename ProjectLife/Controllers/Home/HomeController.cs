@@ -21,9 +21,18 @@ namespace ProjectLife.Controllers
         }
         public IActionResult Index(string filter)
         {
-            Filter.UserFilter = filter==null?UsersConst.AnyWay:filter;
+            if (filter == null)
+            {
+                if (Filter.UserFilter == null)
+                {
+                    Filter.UserFilter = UsersConst.AnyWay;
+                }                
+            }
+            else
+                Filter.UserFilter = filter;
+
             ViewBag.state = "Create";
-            var projects = _projectDataContext.GetProjects(filter);
+            var projects = _projectDataContext.GetProjects();
             var projectsVm = projects.MapTo<ProjectViewModel>(_mapper);
             return View(projectsVm);
         }       
