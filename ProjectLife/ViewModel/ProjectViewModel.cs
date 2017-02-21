@@ -62,7 +62,7 @@ namespace ProjectLife.ViewModel
         {
             get
             {
-                return (TargetDate - DateTime.Now).Days.Equals(0);
+                return (TargetDate - DateTime.Now).Days <=0;
             }
         }
 

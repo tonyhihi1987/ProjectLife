@@ -98,11 +98,11 @@ function initFormData(update){
     var i = 0;
     $("div.task").each(function () {
         
-        var Name = $(this).find(".col-md-6 input").val();
+        var Name = $(this).find(".col-xs-6 input").val();
         if (Name.trim() !== "") {
             var Id = $(this).find("#item_Id").val() ? $(this).find("#item_Id").val() : 0;
             var ProjectId = $("#Id").val();
-            var IsDone = !$(this).find(".col-md-4 input").prop('checked');
+            var IsDone = !$(this).find(".col-xs-4 input").prop('checked');
             formData.append('Tasks[' + i + '].Id', Id);
 
             formData.append('Tasks[' + i + '].Name', Name);

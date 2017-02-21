@@ -7,10 +7,10 @@
         <div class="task" onclick="setActive($(this),event)">
             <input asp-for="@item.Id" type="hidden" class="form-control" />
             <div class="row">
-            <div class="col-md-6">
+            <div class="col-xs-6">
                 <input asp-for="@item.Name" class="form-control" />
             </div>
-            <div class="col-md-4">
+            <div class="col-xs-4">
                 <label class="switch-light" onclick="">
                     @Html.CheckBoxFor(x => item.IsDone)
                     <span class="well">
@@ -23,7 +23,7 @@
             @{
                 var icon = item.Equals(item.Equals(Model.Last())) ? "plus" : "times";
             }
-                <div class="col-md-1">
+                <div class="col-xs-1">
                     <button class="btn btn-primary btn-task fa fa-@icon" onclick="addTask(event)"></button>
                 </div>
             </div>

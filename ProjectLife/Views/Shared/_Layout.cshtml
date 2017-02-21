@@ -1,14 +1,17 @@
 ﻿@{ 
-    var allIcon = string.Empty;
-    var dianeIcon = string.Empty;
-    var clementIcon = string.Empty;
-    var anyWayIcon = string.Empty;
-
+    var emptyList = new List<string> { string.Empty, string.Empty };
     var checkIcon = "fa fa-check";
-    anyWayIcon = Filter.UserFilter == @UsersConst.AnyWay ? checkIcon : "";
-    allIcon = Filter.UserFilter == @UsersConst.All ? checkIcon : "";
-    dianeIcon = Filter.UserFilter == @UsersConst.Diane ? checkIcon : "";
-    clementIcon = Filter.UserFilter == @UsersConst.Clem ? checkIcon : "";
+    var selectedList = new List<string> { checkIcon, "selected" };
+    var allList = emptyList;
+    var dianeList = emptyList;
+    var anyWayList = emptyList;
+    var clementList = emptyList;
+
+
+    anyWayList = Filter.UserFilter == @UsersConst.AnyWay ?selectedList: emptyList;
+    allList = Filter.UserFilter == @UsersConst.All ? selectedList : emptyList;
+    dianeList = Filter.UserFilter == @UsersConst.Diane ? selectedList : emptyList;
+    clementList = Filter.UserFilter == @UsersConst.Clem ? selectedList : emptyList;
 
 }
 <!DOCTYPE html>
@@ -32,7 +35,7 @@
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="row">
-            <div class="col-md-offset-1 col-md-12">
+            <div class="col-lg-offset-0 col-sm-12 col-md-offset-1 col-md-11">
                 <div class="col-md-2">
                     <div class="container">
                         <div class="navbar-header">
@@ -48,26 +51,26 @@
                 </div>
                 <div class="col-md-9 ">
                     <div class="navbar-collapse collapse">
-                        <div class="col-md-6">
+                        <div class="col-md-9">
                             <ul class="nav navbar-nav">
-                                <li>
+                                <li class="@anyWayList.Last()" >
                                     <a asp-area="" asp-controller="Home" asp-action="Index" asp-route-filter="@UsersConst.AnyWay">
-                                        @UsersConst.AnyWay  <i class='@anyWayIcon'></i>
+                                        @UsersConst.AnyWay  <i class='@anyWayList.First()'></i>
                                     </a>
                                 </li>
-                                <li>
+                                <li class="@allList.Last()">
                                     <a asp-area="" asp-controller="Home" asp-action="Index" asp-route-filter="@UsersConst.All">
-                                        @UsersConst.All  <i class='@allIcon'></i>
+                                        @UsersConst.All  <i class='@allList.First()'></i>
                                     </a>
                                 </li>
-                                <li>
+                                <li class="@dianeList.Last()">
                                     <a asp-area="" asp-controller="Home" asp-action="Index" asp-route-filter="@UsersConst.Diane">
-                                        @UsersConst.Diane <i class='@dianeIcon'></i>
+                                        @UsersConst.Diane <i class='@dianeList.First()'></i>
                                     </a>
                                 </li>
-                                <li>
+                                <li class="@clementList.Last()">
                                     <a asp-area="" asp-controller="Home" asp-action="Index" asp-route-filter="@UsersConst.Clem">
-                                        @UsersConst.Clem <i class='@clementIcon'></i>
+                                        @UsersConst.Clem <i class='@clementList.First()'></i>
                                     </a>
                                 </li>
                                 <li class="dropdown">
@@ -81,10 +84,10 @@
                                 </li>
                             </ul>
                             </div>
-                        <div class="col-md-6">
-                            <form class="navbar-form" role="search">
+                        <div class="col-md-3">
+                            <form action="/Home/Search/" class="navbar-form" role="search">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search" name="q">
+                                    <input id="search"  type="text" class="form-control" placeholder="Rechercher" name="search">
                                     <div class="input-group-btn">
                                         <button id="search-btn" class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                                     </div>

@@ -142,5 +142,7 @@ namespace ProjectLife.Controllers
             return PartialView("_Types", vM);
 
         }
+
+
     }
 }
