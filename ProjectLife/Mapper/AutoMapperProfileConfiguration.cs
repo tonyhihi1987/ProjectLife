@@ -12,7 +12,7 @@ namespace ProjectLife.AutoMapper
         protected override void Configure()
         {
             CreateMap<Project, ProjectViewModel>()
-                .ForMember(dest => dest.Data, opts => opts.MapFrom(src => src.Image != null ? $"data:image/gif;base64,{Convert.ToBase64String(src.Image.Data)}" : null))
+                .ForMember(dest => dest.Source, opts => opts.MapFrom(src => src.Image != null ? $"/Upload/{src.Id}/{src.Image.FileName}" : null))
                 .ForMember(dest => dest.ImageId, opts => opts.MapFrom(src => src.Image.Id));
             CreateMap<ProjectViewModel, Project>().ForMember(dest => dest.CreationDate, opts => opts.MapFrom(src => DateTime.Now));
             CreateMap<ProjectLife.Model.Item, TaskViewModel>();

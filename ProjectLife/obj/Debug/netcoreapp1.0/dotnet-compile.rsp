@@ -211,12 +211,16 @@ C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Program.cs
 C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Startup.cs
 C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Controllers\Home\HomeController.cs
 C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Controllers\Project\ProjectController.cs
+C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\DAL\IImageDataContext.cs
+C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\DAL\ImageDataContext.cs
 C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\DAL\IProjectDataContext.cs
 C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\DAL\ITaskDataContext.cs
 C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\DAL\ProjectDataContext.cs
 C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\DAL\ProjectLifeDataContext.cs
 C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\DAL\TaskDataContext.cs
 C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Helper\HtmlHelperExtension.cs
+C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Helper\RootHelper.cs
+C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Logger\MapperHelper.cs
 C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Mapper\AutoMapperProfileConfiguration.cs
 C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Mapper\MapperHelper.cs
 C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Model\Const.cs
@@ -226,6 +230,8 @@ C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Model\Image.cs
 C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Model\Project.cs
 C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Model\Task.cs
 C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Resources\Labels.Designer.cs
+C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Services\FileService.cs
+C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Services\IFileService.cs
 C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\ViewModel\ImageViewModel.cs
 C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\ViewModel\ProjectViewModel.cs
 C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\ViewModel\TaskViewModel.cs

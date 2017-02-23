@@ -10,6 +10,7 @@ using System.Linq;
 using System.Globalization;
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Hosting;
 
 namespace ProjectLife.Controllers
 {
@@ -18,7 +19,7 @@ namespace ProjectLife.Controllers
         private readonly IProjectDataContext _projectDataContext;
         private IMapper _mapper { get; set; }
 
-        public HomeController(IProjectDataContext projectDataContext,[FromServices] IMapper mapper,IMemoryCache cache)
+        public HomeController(IProjectDataContext projectDataContext,[FromServices] IMapper mapper)
         {
             _projectDataContext = projectDataContext;
             _mapper = mapper;

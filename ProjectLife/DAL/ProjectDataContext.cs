@@ -33,10 +33,11 @@ namespace ProjectLife.DAL
             
         }
 
-        public void Add(Project project)
+        public int Add(Project project)
         {
             Projects.Add(project);
             SaveChanges();
+            return project.Id;
         }
         public void Update(Project project,bool updated=false)
         {

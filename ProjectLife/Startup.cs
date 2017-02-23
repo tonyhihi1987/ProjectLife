@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ProjectLife.DAL;
 using ProjectLife.AutoMapper;
 using AutoMapper;
+using ProjectLife.Services;
 
 namespace ProjectLife
 {
@@ -50,18 +51,25 @@ namespace ProjectLife
             .AddDbContext<ProjectDataContext>(options =>
             options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]))
             .AddDbContext<TaskDataContext>(options =>
+             options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]))
+            .AddDbContext<ImageDataContext>(options =>
 
             options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
 
             services.AddMvc();
 
+            services.AddScoped<IImageDataContext, ImageDataContext>();
             services.AddScoped<IProjectDataContext, ProjectDataContext>();
             services.AddScoped<ITaskDataContext, TaskDataContext>();
+            services.AddScoped<IFileService, FileService>();
         }
+
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 

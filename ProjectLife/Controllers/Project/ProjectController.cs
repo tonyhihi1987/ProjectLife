@@ -8,6 +8,9 @@ using ProjectLife.ViewModel;
 using ProjectLife.MapperHelper;
 using ProjectLife.Model;
 using System.IO;
+using ProjectLife.Services;
+using Microsoft.AspNetCore.Hosting;
+using ProjectLife.Helper;
 
 namespace ProjectLife.Controllers
 {
@@ -18,19 +21,26 @@ namespace ProjectLife.Controllers
 
         private readonly IProjectDataContext _projectDataContext;
         private readonly ITaskDataContext _taskDataContext;
+        private readonly IImageDataContext _imageDataContext;
+        private readonly IFileService _fileService;
 
 
-        public ProjectController(IProjectDataContext projectDataContext,ITaskDataContext taskDataContext, [FromServices] IMapper mapper)
+        public ProjectController(IProjectDataContext projectDataContext, IImageDataContext imageDataContext,ITaskDataContext taskDataContext, [FromServices] IMapper mapper, IFileService fileService, IHostingEnvironment env)
         {
             _projectDataContext = projectDataContext;
             _taskDataContext = taskDataContext;
+            _imageDataContext = imageDataContext;
             _mapper = mapper;
+            _fileService = fileService;
+            RootHelper.RootPath = env.ContentRootPath;
         }
         [HttpPost]
         public ActionResult Add(ProjectViewModel pVm)
         {
             pVm.Id = 0;
-            _projectDataContext.Add(fillProject(pVm));
+            pVm.Id = _projectDataContext.Add(FilleImage(pVm, pVm.MapTo<Project>(_mapper)));
+            if (pVm.File != null)
+            _fileService.UploadFile(pVm);
             return Json(Url.Action("Index", "Home"));
 
         }
@@ -38,15 +48,16 @@ namespace ProjectLife.Controllers
         public ActionResult Delete(int id)
         {
             _projectDataContext.Delete(id);
+            _fileService.DeleteFolder(id);
             return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
         public ActionResult Update(ProjectViewModel pVm)
         {            
-            var newProject = fillProject(pVm);
-            
-
+            var newProject = FilleImage(pVm, pVm.MapTo<Project>(_mapper));
+            if (pVm.File != null)
+                _fileService.UploadFile(pVm);
             _projectDataContext.Update(newProject,pVm.ImageId !=0);
             var project = _projectDataContext.GetProject(pVm.Id);
 
@@ -87,34 +98,35 @@ namespace ProjectLife.Controllers
             return PartialView("_EditOrCreate", pVm);
         }
 
-        private Project fillProject(ProjectViewModel pVm)
+
+    
+        private Project FilleImage(ProjectViewModel pVm,Project project)
         {
-            var project = pVm.MapTo<Project>(_mapper);
             if (pVm.File != null)
             {
                 if (pVm.ImageId == null) pVm.ImageId = 0;
-                byte[] data;
-                using (Stream inputStream = pVm.File.OpenReadStream())
+                var newImage = new Image()
                 {
-                    MemoryStream memoryStream = inputStream as MemoryStream;
-                    if (memoryStream == null)
-                    {
-                        memoryStream = new MemoryStream();
-                        inputStream.CopyTo(memoryStream);
-                    }
-                    data = memoryStream.ToArray();
+                    Id=(int)pVm.ImageId,
+                    ProjectId=project.Id,
+                    FileName = pVm.File.FileName
+                };
+                if (pVm.ImageId == null)
+                {
+                    newImage.Id = _imageDataContext.Add(newImage);
+
+                        }
+                else
+                {
+                    _imageDataContext.Update(newImage);
                 }
 
-                project.Image = new ProjectLife.Model.Image()
-                {
-                    
-                    Id= (int)pVm.ImageId,
-                    FileName = pVm.File.FileName,
-                    Data = data
-                };
+                project.Image = newImage;
+
             }
 
             return project;
+
         }
 
         public ActionResult ApplyFilter(List<TypeFilterViewModel> vM)
@@ -138,7 +150,7 @@ namespace ProjectLife.Controllers
                         IsChecked= isChecked
                     });
                 }
-            Filter.TypeFilters = vM;
+            Filter.TypeFilters = vM.Where(a=>a.Name!=null).ToList();
             return PartialView("_Types", vM);
 
         }
