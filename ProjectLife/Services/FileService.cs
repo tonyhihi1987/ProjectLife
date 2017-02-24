@@ -59,6 +59,7 @@ namespace ProjectLife.Services
             try
             {
                 DeleteFiles(directoryPath);
+                _pvm.File.CopyTo(new FileStream(fullPath, FileMode.Create));
             }
 
             catch (Exception exception)
@@ -66,7 +67,7 @@ namespace ProjectLife.Services
 
             };
 
-            _pvm.File.CopyTo(new FileStream(fullPath, FileMode.Create));
+          
 
 
         }

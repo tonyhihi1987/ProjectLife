@@ -21,15 +21,13 @@ namespace ProjectLife.Controllers
 
         private readonly IProjectDataContext _projectDataContext;
         private readonly ITaskDataContext _taskDataContext;
-        private readonly IImageDataContext _imageDataContext;
         private readonly IFileService _fileService;
 
 
-        public ProjectController(IProjectDataContext projectDataContext, IImageDataContext imageDataContext,ITaskDataContext taskDataContext, [FromServices] IMapper mapper, IFileService fileService, IHostingEnvironment env)
+        public ProjectController(IProjectDataContext projectDataContext,ITaskDataContext taskDataContext, [FromServices] IMapper mapper, IFileService fileService, IHostingEnvironment env)
         {
             _projectDataContext = projectDataContext;
             _taskDataContext = taskDataContext;
-            _imageDataContext = imageDataContext;
             _mapper = mapper;
             _fileService = fileService;
             RootHelper.RootPath = env.ContentRootPath;
@@ -38,9 +36,17 @@ namespace ProjectLife.Controllers
         public ActionResult Add(ProjectViewModel pVm)
         {
             pVm.Id = 0;
-            pVm.Id = _projectDataContext.Add(FilleImage(pVm, pVm.MapTo<Project>(_mapper)));
+            var newProject = pVm.MapTo<Project>(_mapper);
+            pVm.Id = _projectDataContext.Add(newProject);
+
             if (pVm.File != null)
-            _fileService.UploadFile(pVm);
+            {                                
+                newProject.ImageName = pVm.File.FileName;
+                pVm.ImageName = newProject.ImageName;
+                _fileService.UploadFile(pVm);
+                _projectDataContext.Update(newProject);
+            }
+           
             return Json(Url.Action("Index", "Home"));
 
         }
@@ -54,11 +60,16 @@ namespace ProjectLife.Controllers
 
         [HttpPost]
         public ActionResult Update(ProjectViewModel pVm)
-        {            
-            var newProject = FilleImage(pVm, pVm.MapTo<Project>(_mapper));
+        {
+            
             if (pVm.File != null)
-                _fileService.UploadFile(pVm);
-            _projectDataContext.Update(newProject,pVm.ImageId !=0);
+            {
+             pVm.ImageName = pVm.File.FileName;            
+            _fileService.UploadFile(pVm);
+            }
+
+            var newProject = pVm.MapTo<Project>(_mapper);
+            _projectDataContext.Update(newProject);
             var project = _projectDataContext.GetProject(pVm.Id);
 
             var tVm = pVm.Tasks.MapTo<ProjectLife.Model.Item>(_mapper);
@@ -100,34 +111,7 @@ namespace ProjectLife.Controllers
 
 
     
-        private Project FilleImage(ProjectViewModel pVm,Project project)
-        {
-            if (pVm.File != null)
-            {
-                if (pVm.ImageId == null) pVm.ImageId = 0;
-                var newImage = new Image()
-                {
-                    Id=(int)pVm.ImageId,
-                    ProjectId=project.Id,
-                    FileName = pVm.File.FileName
-                };
-                if (pVm.ImageId == null)
-                {
-                    newImage.Id = _imageDataContext.Add(newImage);
 
-                        }
-                else
-                {
-                    _imageDataContext.Update(newImage);
-                }
-
-                project.Image = newImage;
-
-            }
-
-            return project;
-
-        }
 
         public ActionResult ApplyFilter(List<TypeFilterViewModel> vM)
         {

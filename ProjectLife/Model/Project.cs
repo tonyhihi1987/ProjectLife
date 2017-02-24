@@ -15,9 +15,8 @@ namespace ProjectLife.Model
         public string TypeName { get; set; }
         public DateTime TargetDate { get; set; }
         public virtual ICollection<Item> Tasks { get; set; }
-        public int? ImageId { get; set; }
-        [ForeignKey("ImageId")]
-        public virtual Image Image { get; set; }
+        public string ImageName { get; set; }
+        
         public string UserName { get; set; }
 
     }

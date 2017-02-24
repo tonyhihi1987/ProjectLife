@@ -12,14 +12,14 @@ namespace ProjectLife.DAL
 
         public Project GetProject(int id)
         {
-            return  Projects.Include(p => p.Image).Include(p => p.Tasks).Where(a => a.Id.Equals(id)).FirstOrDefault();
+            return  Projects.Include(p => p.Tasks).Where(a => a.Id.Equals(id)).FirstOrDefault();
             
         } 
 
         public List<Project> GetProjects()
         {
 
-            var result = Projects.Include(p => p.Image).Include(p => p.Tasks).ToList();
+            var result = Projects.Include(p => p.Tasks).ToList();
             if (Filter.UserFilter != null && Filter.UserFilter != UsersConst.AnyWay)
             {
                 result= result.Where(p => p.UserName.Equals(Filter.UserFilter)).ToList();
@@ -39,11 +39,8 @@ namespace ProjectLife.DAL
             SaveChanges();
             return project.Id;
         }
-        public void Update(Project project,bool updated=false)
+        public void Update(Project project)
         {
-            if (project.Image != null)
-                Entry(project.Image).State = updated? EntityState.Modified : EntityState.Added;            
-
             Projects.Update(project);
             SaveChanges();
         }

@@ -11,6 +11,6 @@ namespace ProjectLife.DAL
         List<string> GetTypes();
         int Add(Project project);
         void Delete(int id);
-        void Update(Project project,bool updated);
+        void Update(Project project);
     }
 }

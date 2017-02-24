@@ -12,8 +12,7 @@ namespace ProjectLife.AutoMapper
         protected override void Configure()
         {
             CreateMap<Project, ProjectViewModel>()
-                .ForMember(dest => dest.Source, opts => opts.MapFrom(src => src.Image != null ? $"/Upload/{src.Id}/{src.Image.FileName}" : null))
-                .ForMember(dest => dest.ImageId, opts => opts.MapFrom(src => src.Image.Id));
+                .ForMember(dest => dest.Source, opts => opts.MapFrom(src => !string.IsNullOrEmpty(src.ImageName) ? $"/Upload/{src.Id}/{src.ImageName}" : null));                
             CreateMap<ProjectViewModel, Project>().ForMember(dest => dest.CreationDate, opts => opts.MapFrom(src => DateTime.Now));
             CreateMap<ProjectLife.Model.Item, TaskViewModel>();
             CreateMap<TaskViewModel, ProjectLife.Model.Item>().ForMember(dest => dest.IsDone, opts => opts.MapFrom(src => !src.IsDone));

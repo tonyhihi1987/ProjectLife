@@ -5,9 +5,14 @@
   .carousel-caption {
     display: none
   }
-  .nav > li{
-      font-size:14px!important;
+  .selected{
+  font-size:22px!important;
+}
+
+      li.dropdown{
+      margin-bottom:15px;
   }
+
 }
 
 @media (min-width: 200px) and (max-width:800px)
@@ -19,6 +24,9 @@
   #div-update > span{
       font-size:1.5em;
       margin-top:3px;
+  }
+    li.dropdown{
+      margin-bottom:15px;
   }
 }
 

@@ -51,14 +51,11 @@ namespace ProjectLife
             .AddDbContext<ProjectDataContext>(options =>
             options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]))
             .AddDbContext<TaskDataContext>(options =>
-             options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]))
-            .AddDbContext<ImageDataContext>(options =>
 
             options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
 
             services.AddMvc();
 
-            services.AddScoped<IImageDataContext, ImageDataContext>();
             services.AddScoped<IProjectDataContext, ProjectDataContext>();
             services.AddScoped<ITaskDataContext, TaskDataContext>();
             services.AddScoped<IFileService, FileService>();
