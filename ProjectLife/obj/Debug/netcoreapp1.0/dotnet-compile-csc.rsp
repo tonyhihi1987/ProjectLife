@@ -4,7 +4,7 @@
 -nowarn:CS1701
 -nowarn:CS1702
 -nowarn:CS1705
--debug:full
+-debug:portable
 -nostdlib
 -nologo
 "C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\obj\Debug\netcoreapp1.0\dotnet-compile.assemblyinfo.cs"
@@ -213,8 +213,8 @@
 "C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\DAL\ProjectLifeDataContext.cs"
 "C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\DAL\TaskDataContext.cs"
 "C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Helper\HtmlHelperExtension.cs"
+"C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Helper\PaginatedList.cs"
 "C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Helper\RootHelper.cs"
-"C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Logger\MapperHelper.cs"
 "C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Mapper\AutoMapperProfileConfiguration.cs"
 "C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Mapper\MapperHelper.cs"
 "C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Model\Const.cs"
@@ -225,6 +225,8 @@
 "C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Resources\Labels.Designer.cs"
 "C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Services\FileService.cs"
 "C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Services\IFileService.cs"
+"C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\ViewModel\CheckViewModel.cs"
 "C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\ViewModel\ProjectViewModel.cs"
 "C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\ViewModel\TaskViewModel.cs"
 "C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\ViewModel\TypeFilterViewModel.cs"
+"C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\ViewModel\UserViewModel.cs"

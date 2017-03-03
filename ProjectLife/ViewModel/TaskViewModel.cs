@@ -7,7 +7,7 @@ using System.IO;
 
 namespace ProjectLife.ViewModel
 {
-    public class TaskViewModel
+    public class TaskViewModel: UserViewModel
     {
 
         public int Id { get; set; }

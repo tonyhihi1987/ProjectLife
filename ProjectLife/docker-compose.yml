@@ -1,0 +1,10 @@
+version: '2'
+
+services:
+  projectlife:
+    image: user/projectlife${TAG}
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80"

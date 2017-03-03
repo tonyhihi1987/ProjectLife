@@ -7,6 +7,7 @@
 --suppress-warning:CS1702
 --suppress-warning:CS1705
 --optimize:False
+--debug-type:portable
 --emit-entry-point:True
 --output-name:ProjectLife
 --file-version:1.0.0.0
@@ -217,8 +218,8 @@ C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\DAL\ProjectDataContext
 C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\DAL\ProjectLifeDataContext.cs
 C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\DAL\TaskDataContext.cs
 C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Helper\HtmlHelperExtension.cs
+C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Helper\PaginatedList.cs
 C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Helper\RootHelper.cs
-C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Logger\MapperHelper.cs
 C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Mapper\AutoMapperProfileConfiguration.cs
 C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Mapper\MapperHelper.cs
 C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Model\Const.cs
@@ -229,6 +230,8 @@ C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Model\Task.cs
 C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Resources\Labels.Designer.cs
 C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Services\FileService.cs
 C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\Services\IFileService.cs
+C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\ViewModel\CheckViewModel.cs
 C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\ViewModel\ProjectViewModel.cs
 C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\ViewModel\TaskViewModel.cs
 C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\ViewModel\TypeFilterViewModel.cs
+C:\Users\Celad-P033\Documents\Dev\ProjectLife\ProjectLife\ViewModel\UserViewModel.cs

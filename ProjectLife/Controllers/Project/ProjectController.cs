@@ -32,11 +32,13 @@ namespace ProjectLife.Controllers
             _fileService = fileService;
             RootHelper.RootPath = env.ContentRootPath;
         }
+
         [HttpPost]
         public ActionResult Add(ProjectViewModel pVm)
         {
             pVm.Id = 0;
-            var newProject = pVm.MapTo<Project>(_mapper);
+            pVm.TargetDate = TimeZoneInfo.ConvertTime(pVm.TargetDate, TimeZoneInfo.Utc);
+             var newProject = pVm.MapTo<Project>(_mapper);
             pVm.Id = _projectDataContext.Add(newProject);
 
             if (pVm.File != null)
@@ -61,7 +63,7 @@ namespace ProjectLife.Controllers
         [HttpPost]
         public ActionResult Update(ProjectViewModel pVm)
         {
-            
+            pVm.TargetDate = TimeZoneInfo.ConvertTime(pVm.TargetDate, TimeZoneInfo.Utc);
             if (pVm.File != null)
             {
              pVm.ImageName = pVm.File.FileName;            
@@ -108,16 +110,14 @@ namespace ProjectLife.Controllers
 
             return PartialView("_EditOrCreate", pVm);
         }
-
-
-    
-
-
+            
         public ActionResult ApplyFilter(List<TypeFilterViewModel> vM)
         {
             Filter.TypeFilters = vM;
             return RedirectToAction("Index", "Home");
         }
+
+
 
         public ActionResult DisplayTypes()
         {
@@ -136,6 +136,45 @@ namespace ProjectLife.Controllers
                 }
             Filter.TypeFilters = vM.Where(a=>a.Name!=null).ToList();
             return PartialView("_Types", vM);
+
+        }
+        public ActionResult ApllyUserTaskFilter(List<UserViewModel> userVm)
+        {
+            Filter.UserTaskFilter = userVm;
+            Filter.UserFilter = UsersConst.All;
+            return RedirectToAction("Index", "Home");
+
+        }
+
+        public ActionResult UserTask()
+        {
+            var vM = new List<UserViewModel>();
+            if (!Filter.UserTaskFilter.Any())
+            {
+
+                vM = new List<UserViewModel>()
+            {
+                new UserViewModel
+            {
+                UserName=UsersConst.Diane
+            },
+           new UserViewModel
+            {
+                UserName=UsersConst.Clem
+            },
+           new UserViewModel
+            {
+                UserName=UsersConst.All
+            }
+            };
+            }
+            else
+            {
+                vM = Filter.UserTaskFilter;
+                
+            }
+
+            return PartialView("_UserTask", vM);
 
         }
 

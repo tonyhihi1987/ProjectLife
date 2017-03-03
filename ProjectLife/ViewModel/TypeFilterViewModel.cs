@@ -7,10 +7,10 @@ using System.IO;
 
 namespace ProjectLife.ViewModel
 {
-    public class TypeFilterViewModel
+    public class TypeFilterViewModel:CheckViewModel
     {
         public string Name { get; set; }
-        public bool IsChecked { get; set; }
+       
 
     }
 }

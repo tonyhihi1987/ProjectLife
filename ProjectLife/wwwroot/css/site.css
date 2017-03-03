@@ -6,7 +6,7 @@
     display: none
   }
   .selected{
-  font-size:22px!important;
+  font-weight:bold;
 }
 
       li.dropdown{
@@ -50,6 +50,9 @@ article p{
 margin-top:15px;
 margin-bottom:15px;
 color:gray;
+}
+.dropdown-menu{
+    padding:7px;
 }
 
 
@@ -173,7 +176,7 @@ textarea {
 }
 
 .selected{
-  font-size:22px!important;
+  font-weight:bold;
 }
 .tooltip-inner {
     background-color: #00acd6;
@@ -256,8 +259,9 @@ color:white;
 .fa-check{
     color:rgba(14, 224, 11, 0.74);     
 }
+
 .check-list .fa-times{
-    color:#31708f;
+    color:#a94442;
 }
 .dropdown-fields
 {

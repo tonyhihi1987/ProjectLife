@@ -19,6 +19,7 @@
 
                     <input class="hidden" asp-for="Id">
                     <input class="hidden" asp-for="ImageName">
+                    <input class="hidden" asp-for="CreationDate">
                     <div class="form-group">
                         <label asp-for="Name" class="col-md-3 control-label"></label>
                         <div class="col-md-9">
@@ -100,7 +101,7 @@
 <script type="text/javascript">
             $(function () {
                 $('#datetimepicker1').datetimepicker({
-                    format: 'DD/MM/YYYY'
+                    format: 'MM/DD/YYYY'
                 })
             });
 

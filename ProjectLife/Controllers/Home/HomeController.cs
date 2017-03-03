@@ -24,23 +24,20 @@ namespace ProjectLife.Controllers
             _projectDataContext = projectDataContext;
             _mapper = mapper;
         }
-        public IActionResult Index(string filter)
+        public IActionResult Index(string filter,int?page)
         {
-            if (filter == null)
-            {
-                if (Filter.UserFilter == null)
-                {
-                    Filter.UserFilter = UsersConst.AnyWay;
-                }                
-            }
-            else
-                Filter.UserFilter = filter;
+
+            if (filter != null)
+            Filter.UserFilter = filter;
+
+            if (Filter.UserFilter != null && Filter.UserFilter != UsersConst.All) Filter.UserTaskFilter.ClearChecked();
 
             ViewBag.state = "Create";
             var projects = _projectDataContext.GetProjects();
             var projectsVm = projects.MapTo<ProjectViewModel>(_mapper);
-            Filter.CurrentFilteredProjects = projectsVm;
-            return View(projectsVm);
+            var vM = PaginatedList<ProjectViewModel>.Create(projectsVm.AsQueryable(), page ?? 1, 3);
+            Filter.CurrentFilteredProjects = vM;
+            return View(vM);
         }       
 
         public IActionResult Error()
@@ -50,19 +47,19 @@ namespace ProjectLife.Controllers
 
         public ActionResult Search(string search)
         {
-            var vM = new List<ProjectViewModel>();
+            PaginatedList<ProjectViewModel> pVm;
             if (!string.IsNullOrEmpty(search))
             {
                 search = search.ToUpper();
                 var byTasksVm = Filter.CurrentFilteredProjects.Where(p => p.Tasks.Where(t => t.Name.ToUpper().Contains(search)).Any()).ToList();
                 var byProjectsVm = Filter.CurrentFilteredProjects.Where(p => (p.Name != null && p.Name.ToUpper().Contains(search)) || (p.Description !=null && p.Description.Contains(search))).ToList();
-                vM = byProjectsVm.Concat(byTasksVm).ToList();
+                pVm = PaginatedList<ProjectViewModel>.Create(byProjectsVm.Concat(byTasksVm).ToList().AsQueryable(), 1, 3) ;
             }
             else
             {
-                vM = Filter.CurrentFilteredProjects;
+                pVm = Filter.CurrentFilteredProjects;
             }
-            return View("Index", vM);
+            return View("Index", pVm);
 
         }
     }

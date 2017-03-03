@@ -12,6 +12,7 @@
     allList = Filter.UserFilter == @UsersConst.All ? selectedList : emptyList;
     dianeList = Filter.UserFilter == @UsersConst.Diane ? selectedList : emptyList;
     clementList = Filter.UserFilter == @UsersConst.Clem ? selectedList : emptyList;
+    var isType = Filter.TypeFilters.Where(f=>f.IsChecked).Any()?selectedList: emptyList;
 
 }
 <!DOCTYPE html>
@@ -35,7 +36,7 @@
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="row">
-            <div class="col-lg-offset-0 col-sm-12 col-md-offset-1 col-md-11">
+            <div class="col-lg-offset-1 col-sm-12 col-md-offset-1 col-md-11">
                 <div class="col-md-2">
                     <div class="container">
                         <div class="navbar-header">
@@ -54,7 +55,7 @@
                         <div class="col-md-9">
                             <ul class="nav navbar-nav">
                                 <li class="dropdown">
-                                    <a href="#" data-toggle="dropdown" class="dropdown-toggle">Type de Projet <b class="caret"></b></a>
+                                    <a href="#" data-toggle="dropdown" class="dropdown-toggle">Type de Projet  <i class='@isType.First()'></i><b class="caret"></b></a>
 
                                     @Html.RenderAction("DisplayTypes", "Project")
 
@@ -64,10 +65,11 @@
                                         @UsersConst.AnyWay  <i class='@anyWayList.First()'></i>
                                     </a>
                                 </li>
-                                <li class="@allList.Last()">
-                                    <a asp-area="" asp-controller="Home" asp-action="Index" asp-route-filter="@UsersConst.All">
-                                        @UsersConst.All  <i class='@allList.First()'></i>
-                                    </a>
+                                <li class="@allList.Last() dropdown">                                    
+                                    <a href="#" data-toggle="dropdown" class="dropdown-toggle">@UsersConst.All<i class='@allList.First()'></i><b class="caret"></b></a>
+                                    @Html.RenderAction("UserTask", "Project")
+                                  
+                           
                                 </li>
                                 <li class="@dianeList.Last()">
                                     <a asp-area="" asp-controller="Home" asp-action="Index" asp-route-filter="@UsersConst.Diane">
@@ -87,7 +89,7 @@
                         <div class="col-md-3">
                             <form action="/Home/Search/" class="navbar-form" role="search">
                                 <div class="input-group">
-                                    <input id="search"  type="text" class="form-control" placeholder="Rechercher" name="search">
+                                    <input id="search"  type="text" class="form-control"  name="search">
                                     <div class="input-group-btn">
                                         <button id="search-btn" class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                                     </div>

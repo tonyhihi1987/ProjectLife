@@ -98,14 +98,16 @@ function initFormData(update){
     var i = 0;
     $("div.task").each(function () {
         
-        var Name = $(this).find(".col-xs-6 input").val();
+        var Name = $(this).find(".col-xs-4 input").val();
         if (Name.trim() !== "") {
             var Id = $(this).find("#item_Id").val() ? $(this).find("#item_Id").val() : 0;
-            var ProjectId = $("#Id").val();
-            var IsDone = !$(this).find(".col-xs-4 input").prop('checked');
+            var ProjectId = $("#Id").val()
+            var UserName = $(this).find("#item_UserName").val();
+            var IsDone = !$(this).find(".col-xs-3 input").prop('checked');
             formData.append('Tasks[' + i + '].Id', Id);
 
             formData.append('Tasks[' + i + '].Name', Name);
+            formData.append('Tasks[' + i + '].UserName', UserName)
             formData.append('Tasks[' + i + '].ProjectId', ProjectId);
             formData.append('Tasks[' + i + '].IsDone', IsDone);
         }

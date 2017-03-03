@@ -10,7 +10,8 @@
       "NETCOREAPP1_0"
     ],
     "optimize": false,
-    "emitEntryPoint": true
+    "emitEntryPoint": true,
+    "debugType": "portable"
   },
   "targets": {
     ".NETCoreApp,Version=v1.0": {

@@ -11,7 +11,7 @@ using System.Reflection;
 
 namespace ProjectLife.ViewModel
 {
-    public class ProjectViewModel
+    public class ProjectViewModel:UserViewModel
     {
 
         public int Id { get; set; }
@@ -22,24 +22,18 @@ namespace ProjectLife.ViewModel
         [Display(Name = "Description", ResourceType = typeof(Labels))]
         public string Description { get; set; }
 
-        [Display(Name = "User", ResourceType = typeof(Labels))]
-        public string UserName { get; set; }
 
-        public List<SelectListItem> Users { get; set; } =
-        new List<SelectListItem>()
-    {
-        new SelectListItem() { Text =UsersConst.Clem , Value = UsersConst.Clem },
-        new SelectListItem() { Text = UsersConst.Diane, Value = UsersConst.Diane },
-        new SelectListItem() { Text = UsersConst.All, Value = UsersConst.All },
-    };
         [Display(Name = "Task", ResourceType = typeof(Labels))]
         public virtual ICollection<TaskViewModel> Tasks { get; set; } = new List<TaskViewModel>();
+
         public List<SelectListItem> Types { get; set; } = new List<SelectListItem>();
+
+        [Display(Name = "TypeName", ResourceType = typeof(Labels))]
         public string TypeName { get; set; }
 
         [Display(Name = "TargetDate", ResourceType = typeof(Labels))]
         [DataType(DataType.DateTime)]
-        public DateTime TargetDate { get; set; } = DateTime.Now;
+        public DateTime TargetDate { get; set; } = DateTime.UtcNow;
 
         [DataType(DataType.DateTime)]
         public DateTime CreationDate { get; set; }
@@ -52,9 +46,10 @@ namespace ProjectLife.ViewModel
         {
             get
             {
-                TimeSpan ts = TargetDate - DateTime.Now;
+
+                TimeSpan ts = TimeZoneInfo.ConvertTime(TargetDate,TimeZoneInfo.Utc) - DateTime.UtcNow;
                 return string.Format("{0}j",
-                ts.Days);
+               Math.Abs(ts.Days));
             }
         }
 
@@ -78,7 +73,6 @@ namespace ProjectLife.ViewModel
         {
             foreach (var prop in typeof(TypeConst).GetFields())
             {
-
                     var value = prop.GetValue(new TypeConst()) as string;
                     Types.Add(new SelectListItem()
                     {

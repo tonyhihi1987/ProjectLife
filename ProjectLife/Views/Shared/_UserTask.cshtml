@@ -1,0 +1,20 @@
+﻿@model List<UserViewModel>
+@if (Model.Any())
+{
+<ul class="dropdown-menu" id="menu">
+    <p style="font-weight:100">Afficher les taches de : </p>
+    
+    <form method="post" action="/Project/ApllyUserTaskFilter">       
+        @for (int j = 0; j < Model.Count; j++)
+        {
+            <div>
+                <input asp-for="@Model[j].IsChecked" type="checkbox" />
+                <label>@Model[j].UserName</label>
+                <input asp-for="@Model[j].UserName" type="hidden" />
+            </div>    
+                }
+
+        <button class="btn btn-primary fa fa-check" type="submit" style="float:right"></button>
+    </form>
+</ul>
+}

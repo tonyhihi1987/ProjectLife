@@ -8,7 +8,7 @@ namespace ProjectLife.Model
     {
         public const string Diane = "Diane";
         public const string Clem = "Clément";
-        public const string All = "Tout les deux";
+        public const string All = "Tous les deux";
         public const string AnyWay = "Tous";
     }
 
@@ -19,5 +19,6 @@ namespace ProjectLife.Model
         public const string Appliances = "ElectroMénager";
         public const string Baby = "Enfant";
         public const string LifeStyle = "Hygiène de vie";
+        public const string Estate = "Immobilier";
     }
 }

@@ -18,8 +18,8 @@ namespace ProjectLife.DAL
 
         public List<Project> GetProjects()
         {
-
             var result = Projects.Include(p => p.Tasks).ToList();
+
             if (Filter.UserFilter != null && Filter.UserFilter != UsersConst.AnyWay)
             {
                 result= result.Where(p => p.UserName.Equals(Filter.UserFilter)).ToList();
@@ -29,8 +29,17 @@ namespace ProjectLife.DAL
             {
                 result= result.Where(a => Filter.TypeFilters.Where (f => f.IsChecked && f.Name.Equals(a.TypeName)).Count() > 0).ToList();
             }
+
+            if (Filter.UserTaskFilter.Where(a => a.IsChecked).Any())
+            {
+
+                foreach (var item in result)
+                {
+                    item.Tasks = item.Tasks.Where(t => Filter.UserTaskFilter.Where(f => f.IsChecked && t.UserName.Equals(f.UserName)).Count() > 0).ToList();
+                }
+               
+            }
             return result;
-            
         }
 
         public int Add(Project project)
