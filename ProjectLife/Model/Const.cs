@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace ProjectLife.Model
 {
@@ -12,6 +13,27 @@ namespace ProjectLife.Model
         public const string AnyWay = "Tous";
     }
 
+    public class MaiLConst
+    {
+        public const string Diane = "dianedossou@live.fr";
+        public const string Clem = "borgnon.clement@hotmail.fr";
+        public const string All = "dianedossou@live.fr;borgnon.clement@hotmail.fr";
+
+        public static string GetConst(string value)
+        {
+            var result = string.Empty;
+
+            foreach (var prop in typeof(MaiLConst).GetFields())
+            {
+
+                if (value.Equals(prop.Name))
+                    result = prop.GetValue(new MaiLConst()).ToString();
+
+            }
+            return result;
+
+        }
+    }
     public class TypeConst
     {
         public const string Travel = "Voyage";

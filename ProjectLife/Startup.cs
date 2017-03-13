@@ -9,6 +9,7 @@ using ProjectLife.DAL;
 using ProjectLife.AutoMapper;
 using AutoMapper;
 using ProjectLife.Services;
+using ProjectLife.Model.Identity;
 
 namespace ProjectLife
 {
@@ -48,11 +49,16 @@ namespace ProjectLife
             services.AddMemoryCache();
 
             services.AddEntityFrameworkSqlServer()
+            .AddDbContext<ApplicationDbContext>(options =>
+            options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]))
             .AddDbContext<ProjectDataContext>(options =>
             options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]))
             .AddDbContext<TaskDataContext>(options =>
-
             options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]));
+
+            services.AddIdentity<ApplicationUser, ApplicationRole>()
+             .AddEntityFrameworkStores<ApplicationDbContext>()
+             .AddDefaultTokenProviders();
 
             services.AddMvc();
 
@@ -71,7 +77,7 @@ namespace ProjectLife
             loggerFactory.AddDebug();            
 
             app.UseApplicationInsightsRequestTelemetry();
-
+            app.UseIdentity();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

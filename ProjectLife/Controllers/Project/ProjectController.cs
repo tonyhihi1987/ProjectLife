@@ -11,9 +11,13 @@ using System.IO;
 using ProjectLife.Services;
 using Microsoft.AspNetCore.Hosting;
 using ProjectLife.Helper;
+using Microsoft.AspNetCore.Authorization;
+using MimeKit;
+using MailKit.Net.Smtp;
 
 namespace ProjectLife.Controllers
 {
+    [Authorize(Roles = "User")]
     public class ProjectController : Controller
     {
 
@@ -48,7 +52,7 @@ namespace ProjectLife.Controllers
                 _fileService.UploadFile(pVm);
                 _projectDataContext.Update(newProject);
             }
-           
+            SendMail(pVm.Name,true);
             return Json(Url.Action("Index", "Home"));
 
         }
@@ -91,7 +95,9 @@ namespace ProjectLife.Controllers
             
 
             _taskDataContext.Delete(taskToBeDeleted);
-            _taskDataContext.Add(taskToBeAdded); 
+            _taskDataContext.Add(taskToBeAdded);
+
+            SendMail(pVm.Name);
 
              return Json(Url.Action("Index", "Home"));
         }
@@ -176,6 +182,33 @@ namespace ProjectLife.Controllers
 
             return PartialView("_UserTask", vM);
 
+        }
+
+        private void SendMail(string Project,bool Add=false)
+        {
+
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("ProjectLife", "ProjectLife@ProjectLife.fr"));
+            message.To.Add(new MailboxAddress(nameof(MaiLConst.Diane), MaiLConst.Diane));
+            message.To.Add(new MailboxAddress(nameof(MaiLConst.Clem), (MaiLConst.Clem)));
+            message.Subject = "[Project Life] Du nouveau dans vos projets!";
+
+            var bodyBuilder = new BodyBuilder();
+            var url = "http://ec2-54-174-17-142.compute-1.amazonaws.com:81";
+            var updateWord = Add ? "Crée" : "modifié";
+            bodyBuilder.HtmlBody = $"<b>Le projet {Project} a été {updateWord} !</b></br></br> Viens vite à l'adresse suivante : </br>";
+            bodyBuilder.HtmlBody += $"<a href=\"{url}\">cliquer ici</a>";
+            message.Body = bodyBuilder.ToMessageBody();
+
+            using (var client = new SmtpClient())
+            {
+                client.AuthenticationMechanisms.Remove("XOAUTH2");
+                client.Connect("smtp.live.com", 25, false);
+                client.Authenticate(MaiLConst.Clem, "dada1987");                
+                // Note: since we don't have an OAuth2 token, disable 	// the XOAUTH2 authentication mechanism.     client.Authenticate("anuraj.p@example.com", "password");
+                client.Send(message);
+                client.Disconnect(true);
+            }
         }
 
 

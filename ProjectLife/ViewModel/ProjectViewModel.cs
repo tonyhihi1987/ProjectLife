@@ -49,7 +49,7 @@ namespace ProjectLife.ViewModel
 
                 TimeSpan ts = TimeZoneInfo.ConvertTime(TargetDate,TimeZoneInfo.Utc) - DateTime.UtcNow;
                 return string.Format("{0}j",
-               Math.Abs(ts.Days));
+              ts.Days);
             }
         }
 

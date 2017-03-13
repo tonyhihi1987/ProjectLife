@@ -87,6 +87,15 @@ namespace ProjectLife.Resources {
         }
         
         /// <summary>
+        ///    Recherche une chaîne localisée similaire à Mot de passe.
+        /// </summary>
+        public static string Password {
+            get {
+                return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///    Recherche une chaîne localisée similaire à Date prévu.
         /// </summary>
         public static string TargetDate {
@@ -119,6 +128,15 @@ namespace ProjectLife.Resources {
         public static string User {
             get {
                 return ResourceManager.GetString("User", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///    Recherche une chaîne localisée similaire à Nom.
+        /// </summary>
+        public static string UserName {
+            get {
+                return ResourceManager.GetString("UserName", resourceCulture);
             }
         }
     }

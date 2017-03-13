@@ -11,18 +11,24 @@ using System.Globalization;
 using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using ProjectLife.Model.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProjectLife.Controllers
 {
+    [Authorize(Roles = "User")]
     public class HomeController : Controller
     {
         private readonly IProjectDataContext _projectDataContext;
         private IMapper _mapper { get; set; }
+        private readonly RoleManager<ApplicationRole> _roleManager;
 
-        public HomeController(IProjectDataContext projectDataContext,[FromServices] IMapper mapper)
+        public HomeController(IProjectDataContext projectDataContext,[FromServices] IMapper mapper, RoleManager<ApplicationRole> roleManager)
         {
             _projectDataContext = projectDataContext;
             _mapper = mapper;
+            _roleManager = roleManager;
         }
         public IActionResult Index(string filter,int?page)
         {
@@ -47,6 +53,7 @@ namespace ProjectLife.Controllers
 
         public ActionResult Search(string search)
         {
+            
             PaginatedList<ProjectViewModel> pVm;
             if (!string.IsNullOrEmpty(search))
             {

@@ -1,4 +1,8 @@
-﻿@model PaginatedList<ProjectViewModel>
+﻿@using Microsoft.AspNetCore.Identity 
+@using ProjectLife.Model.Identity
+@model PaginatedList<ProjectViewModel>
+@inject SignInManager<ApplicationUser> SignInManager
+
 <script>
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
@@ -14,155 +18,170 @@
 
     });
 </script>
+
+
 <div id="index">
-    @{
-        ViewData["Title"] = "Home Page";
-        var checkListId = "checkList0";
-        var clemColor = "#31708f";
-        var dianeColor = "rgb(224, 11, 117)";
-        int i = 0;
-    }
-    @{
-        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
-    }
-   
-    @foreach (var item in Model)
+
+    @if (SignInManager.IsSignedIn(User))
     {
 
-        var userTag = string.Empty;
-        var color = string.Empty;
-        switch (item.UserName)
-        {
-            case UsersConst.Diane:
-                userTag = "D";
-                color = dianeColor;
-                break;
-            case UsersConst.Clem:
-                userTag = "C";
-                color = clemColor;
-                break;
-            default:
-                break;
-        }
+            Layout = "_Layout";
+            ViewData["Title"] = "Home Page";
+            var checkListId = "checkList0";
+            var clemColor = "#31708f";
+            var dianeColor = "rgb(224, 11, 117)";
+            int i = 0;
 
-        <article>
-            <div class="row">
-                <div class="col-xs-4">
-                    <div style="float:left">
-                        <div>
-                            @if (item.UserName != UsersConst.All)
-                {
-                                <span class="user-tag" style="color:@color">@userTag</span>
-                            }
-                            else
+            var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+            var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+
+        @foreach (var item in Model)
+        {
+
+            var userTag = string.Empty;
+            var color = string.Empty;
+            switch (item.UserName)
+            {
+                case UsersConst.Diane:
+                    userTag = "D";
+                    color = dianeColor;
+                    break;
+                case UsersConst.Clem:
+                    userTag = "C";
+                    color = clemColor;
+                    break;
+                default:
+                    break;
+            }
+
+            <article>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <div style="float:left">
+                            <div>
+                                @if (item.UserName != UsersConst.All)
+                                {
+                                    <span class="user-tag" style="color:@color">@userTag</span>
+                                }
+                                else
+                                {
+                                    <span class="user-tag" style="color:@clemColor">C</span>
+                                    <span class="user-tag" style="color:@dianeColor;padding-left:5px;">D</span>
+                                }
+
+                            </div>
+                            <span class="date-created"><i class="fa fa-pencil-square"></i>  @item.CreationDate.ToString("dd/MM/yyyy")</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-5">
+                        <h1>@item.Name</h1>
+                    </div>
+                    <div class="col-xs-offset-0  col-xs-3">
+                        <div id="div-update" class="row">
+
+                            <form class="delete" action="Project/Delete/@item.Id" method="post">
+                                <button id="btn-remove" data-toggle="tooltip" data-placement="bottom" title="Supprimer" type="submit"><i class="glyphicon glyphicon-remove"></i></button>
+                            </form>
+                            <button id="btn-modify" data-toggle="tooltip" data-placement="bottom" title="Modifier" onclick="setModal(@item.Id)"><i class="glyphicon glyphicon-pencil"></i></button>
+                            @if (!item.IsDone && item.IsWarn)
                             {
-                                <span class="user-tag" style="color:@clemColor">C</span>
-                                <span class="user-tag" style="color:@dianeColor;padding-left:5px;">D</span>
+                                <span data-toggle="tooltip" data-placement="bottom" title="Tu as dépassé la date prévu !!" style="opacity:0.6;float:right;padding:0px;margin-right:3px;color:red" class="fa fa-warning fa-2x"></span>
                             }
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="col-md-3 col-xs-0">
+                            <img class="img-responsive" src="@item.Source" />
+                        </div>
+                        <div class="col-md-7 col-xs-10">
+                            <p>@item.Description</p>
 
                         </div>
-                        <span class="date-created"><i class="fa fa-pencil-square"></i>  @item.CreationDate.ToString("dd/MM/yyyy")</span>                      
-                    </div>
-                </div>
-                <div class="col-xs-5">
-                    <h1>@item.Name</h1>
-                </div>
-                <div class="col-xs-offset-0  col-xs-3">
-                    <div id="div-update" class="row">
 
-                        <form class="delete" action="Project/Delete/@item.Id" method="post">
-                            <button id="btn-remove" data-toggle="tooltip" data-placement="bottom" title="Supprimer" type="submit"><i class="glyphicon glyphicon-remove"></i></button>
-                        </form>
-                        <button id="btn-modify" data-toggle="tooltip" data-placement="bottom" title="Modifier" onclick="setModal(@item.Id)"><i class="glyphicon glyphicon-pencil"></i></button>
                         @if (item.IsDone)
-                        {
-                            <img data-toggle="tooltip" data-placement="bottom" title="Bien joué!!" style="float:right" src="/images/gold-medal-icon-32x32.png" />
+                    {
+                            <div class="col-md-2 col-xs-2">
+                                <img data-toggle="tooltip" data-placement="bottom" title="Bien joué!!" style="float:right" src="~/images/gold-medal-icon.jpg" />
+                            </div>
                         }
-                        else if(item.IsWarn)
-                        {
-                            <span data-toggle="tooltip" data-placement="bottom" title="Tu as dépassé la date prévu !!" style="opacity:0.6;float:right;padding:0px;margin-right:3px;color:red" class="fa fa-warning fa-2x" ></span>
-                        }
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="col-md-3 col-xs-0">
-                        <img class="img-responsive" src="@item.Source" />
-                    </div>
-                    <div class="col-md-9 col-xs-12">
-                        <p>@item.Description</p>
-                    </div>
-                </div>
 
-            </div>
-            <div class="row">
+                    </div>
+
+                </div>
+                <div class="row">
                     <span class="date-target"><i class="fa fa-dot-circle-o"></i>  @item.TargetTime</span>
 
-                @if (item.Tasks.Any()){ 
-                <div style="margin-top:20px;" data-toggle="collapse" data-target="#@checkListId" class="accordion-toggle">
-                    <span class="check-list">Check list <i class="fa fa-caret-down"></i></span>
-                </div>
-                <div class="check-list">
-                    <div class="accordian-body collapse" id="@checkListId">
-                        @foreach (var tak in item.Tasks)
+                    @if (item.Tasks.Any())
+                    {
+                        <div style="margin-top:20px;" data-toggle="collapse" data-target="#@checkListId" class="accordion-toggle">
+                            <span class="check-list">Check list <i class="fa fa-caret-down"></i></span>
+                        </div>
+                        <div class="check-list">
+                            <div class="accordian-body collapse" id="@checkListId">
+                                @foreach (var tak in item.Tasks)
                         {
 
-                        <div >
-                           @{var iconClass = tak.IsDone ? "check" : "times";
-                               var iconColor = string.Empty;
-                               switch (tak.UserName)
-                               {
-                                   case UsersConst.Diane:
-                                       iconColor = dianeColor;
-                                       break;
-                                   case UsersConst.Clem:
-                                       iconColor = clemColor;
-                                       break;
-                                   default:
-                                       break;
-                               }
-                               }
-                             @if (tak.UserName.Equals(UsersConst.All))
-                             {
-                                <i class="fa fa-thumb-tack" style="color:@clemColor" aria-hidden="true"></i>
-                                <i class="fa fa-thumb-tack" style="color:@dianeColor" aria-hidden="true"></i>
+                                    <div>
+                                        @{var iconClass = tak.IsDone ? "check" : "times";
+                                            var iconColor = string.Empty;
+                                            switch (tak.UserName)
+                                            {
+                                                case UsersConst.Diane:
+                                                    iconColor = dianeColor;
+                                                    break;
+                                                case UsersConst.Clem:
+                                                    iconColor = clemColor;
+                                                    break;
+                                                default:
+                                                    break;
+                                            }
+                                        }
+                                        @if (tak.UserName.Equals(UsersConst.All))
+                                        {
+                                            <i class="fa fa-thumb-tack" style="color:@clemColor" aria-hidden="true"></i>
+                                            <i class="fa fa-thumb-tack" style="color:@dianeColor" aria-hidden="true"></i>
 
-                             }
-                             else
-                             {
-                                <i class="fa fa-thumb-tack" style="color:@iconColor" aria-hidden="true"></i>
-                             }
-                            @tak.Name
-                            <i class="fa fa-@iconClass"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="fa fa-thumb-tack" style="color:@iconColor" aria-hidden="true"></i>
+                                        }
+                                        @tak.Name
+                                        <i class="fa fa-@iconClass"></i>
+                                    </div>
+                                    <hr style="width:33%;margin-left:0px;" />
+                                            }
+                            </div>
                         </div>
-                        <hr style="width:33%;margin-left:0px;" />
-                        }
-                    </div>
+                                            }
                 </div>
-                }
-            </div>
-        </article>
-        i++;
-        checkListId = $"checklist{i}";
-    }
+            </article>
+                                                i++;
+                                                checkListId = $"checklist{i}";
+                                            }
 
-   
-</div>
-<div class="col-md-offset-11 col-md-2 col-xs-offset-7 col-xs-5" style=" margin-top:2em">
-    <a  asp-action="Index"
-       asp-route-page="@(Model.PageIndex - 1)"
-       class="btn btn-default @prevDisabled btn">
-        <i class="fa fa-chevron-left" style="color:#31708f"></i>
-    </a>
-    <a  asp-action="Index"
-       asp-route-page="@(Model.PageIndex + 1)"
-       class="btn btn-default @nextDisabled btn">
-        <i class="fa fa-chevron-right" style="color:#31708f"></i>
-    </a>
-</div>
 
+
+                                            <div class="col-md-offset-11 col-md-2 col-xs-offset-7 col-xs-5" style=" margin-top:2em">
+                                                <a asp-action="Index"
+                                                   asp-route-page="@(Model.PageIndex - 1)"
+                                                   class="btn btn-default @prevDisabled btn">
+                                                    <i class="fa fa-chevron-left" style="color:#31708f"></i>
+                                                </a>
+                                                <a asp-action="Index"
+                                                   asp-route-page="@(Model.PageIndex + 1)"
+                                                   class="btn btn-default @nextDisabled btn">
+                                                    <i class="fa fa-chevron-right" style="color:#31708f"></i>
+                                                </a>
+                                            </div>
+                                            }
+                                            else
+                                            {
+                                               @Html.Partial("~/Views/Account/Login.cshtml", new LogonViewModel())
+                                            }
+</div>
 
 
 

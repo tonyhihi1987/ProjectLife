@@ -126,6 +126,9 @@
   <data name="Name" xml:space="preserve">
     <value>Nom</value>
   </data>
+  <data name="Password" xml:space="preserve">
+    <value>Mot de passe</value>
+  </data>
   <data name="TargetDate" xml:space="preserve">
     <value>Date prévu</value>
   </data>
@@ -137,5 +140,8 @@
   </data>
   <data name="User" xml:space="preserve">
     <value>Projet destiné à</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>Nom</value>
   </data>
 </root>
