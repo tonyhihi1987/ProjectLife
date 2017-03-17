@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ProjectLife.DAL
 {
-    public interface IProjectDataContext
+    public interface IProjectDataContext:IDisposable
     {
         Project GetProject(int id);
         List<Project> GetProjects();

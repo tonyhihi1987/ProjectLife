@@ -28,7 +28,15 @@
     li.dropdown{
       margin-bottom:15px;
   }
+
+    .goldMedal{
+        height:72px;
+        width:72px;
+
+    }
 }
+
+
 
 body {
     padding-top: 50px;
